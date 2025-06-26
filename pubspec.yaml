@@ -1,0 +1,63 @@
+name: ride_share_flat
+description: "A new Flutter project."
+
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+
+
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.8.0
+
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+
+  cupertino_icons: ^1.0.8
+  get: ^4.7.2
+  http: ^1.4.0
+  flutter_easyloading: ^3.0.5
+  shared_preferences: ^2.5.3
+  flutter_screenutil: ^5.9.3
+  flutter_svg: ^2.2.0
+  google_fonts: ^6.2.1
+  fluttertoast: ^8.2.12
+  socket_io_client: ^3.1.2
+  cached_network_image: ^3.4.1
+  flutter_intl_phone_field: ^0.0.7
+  image_picker: ^1.1.2
+  intl: ^0.20.2
+  flutter_html: ^3.0.0
+  flutter_dotenv: ^5.2.1
+  flutter_keyboard_visibility: ^6.0.0
+  flutter_switch: ^0.3.2
+  flutter_otp_text_field: ^1.5.1+1
+  date_format: ^2.0.9
+  dotted_border: ^3.0.1
+  dotted_line: ^3.2.3
+  intl_phone_number_field: ^0.2.1
+  flutter_rating_bar: ^4.0.1
+  google_maps_flutter: ^2.12.3
+  geolocator: ^14.0.1
+  geocoding: ^4.0.0
+  flutter_holo_date_picker: ^2.0.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+
+  flutter_lints: ^5.0.0
+
+
+flutter:
+  assets:
+    - assets/icons/
+    - assets/images/
+
+
+
+  uses-material-design: true
+
