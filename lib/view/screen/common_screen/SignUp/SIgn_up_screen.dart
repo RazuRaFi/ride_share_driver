@@ -35,7 +35,7 @@ class SignUpScreen extends StatelessWidget {
               SizedBox(height: 16,),
               Center(child: CommonText(text: "Please Sign up to continue our app", fontSize: 14, fontWeight: FontWeight.w400)),
               SizedBox(height: 32,),
-              CommonText(text: "Full Name", fontSize: 14, fontWeight:FontWeight.w500),
+              CommonText(text: "Fast Name", fontSize: 14, fontWeight:FontWeight.w500),
               SizedBox(height: 7,),
               CustomTextField(hindText: "Enter your name",fieldBorderRadius: 10,textStyle:TextStyle(fontSize: 14),),
               SizedBox(height: 16,),

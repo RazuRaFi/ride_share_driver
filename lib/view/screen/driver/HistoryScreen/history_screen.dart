@@ -43,84 +43,84 @@ class HistoryScreen extends StatelessWidget {
                   height: 148,
                   width: 393,
                   decoration: BoxDecoration(
-                    border: Border.symmetric(horizontal:BorderSide(color: Colors.grey)),
+                    border: Border.symmetric(horizontal: BorderSide(color: Colors.grey)),
                   ),
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16,vertical: 10),
+                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      spacing: 5,
                       children: [
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             CommonText(text: "25 June 2024, 04:40 PM",fontSize: 16,fontWeight: FontWeight.w500,),
                             Row(
-                              spacing: 5,
                               children: [
-                                CommonText(text: "110",fontSize: 16,fontWeight: FontWeight.w500,),
-                                Icon(Icons.arrow_forward_ios_outlined,size: 16,),
+                                CommonText(text: "\$11",fontSize: 16,fontWeight: FontWeight.w500,),
+                                Icon(Icons.arrow_forward_ios_outlined, size: 16),
                               ],
-                            )
-
+                            ),
                           ],
                         ),
+                        SizedBox(height: 10),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
-                              spacing: 5,
                               children: [
-                               Column(
-                                 crossAxisAlignment: CrossAxisAlignment.start,
-                                 children: [
-                                   CommonText(text: "Pick up",fontSize: 14,fontWeight: FontWeight.w400,),
-                                   CommonText(text: "Block B, Banasree, Dhaka.",fontSize: 14,fontWeight: FontWeight.w400,),
+                                Row(
+                                  children: [
+                                    Icon(Icons.circle, size: 8, color: Colors.black),
+                                    SizedBox(width: 5),
+                                    CommonText(text: "PICK UP", fontSize: 14, fontWeight: FontWeight.w400,),
+                                  ],
+                                ),
+                                CommonText(text: "Block B, Banasree, Dhaka.", fontSize: 14, fontWeight: FontWeight.w400,),
+                                SizedBox(height: 10),
+                                Row(
+                                  children: [
+                                    Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Row(
+                                          children: [
+                                            Icon(Icons.circle, size: 8, color: Colors.black),
+                                            SizedBox(width: 5),
+                                            CommonText(text: "Drop of", fontSize: 14, fontWeight: FontWeight.w400,),
+                                          ],
+                                        ),
+                                        CommonText(text: "Dhanmondi, Dhaka.", fontSize: 14, fontWeight: FontWeight.w400,),
+                                      ],
+                                    ),
 
-                                 ],
-                               ),
-                               Divider(thickness: 1,color: Colors.black,height: 1,),
-                               Row(
-                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                 crossAxisAlignment: CrossAxisAlignment.center,
-                                 children: [
-                                   Column(
-                                     crossAxisAlignment: CrossAxisAlignment.start,
-                                     children: [
-                                       CommonText(text: "Drop of",fontSize: 14,fontWeight: FontWeight.w400,),
-                                       CommonText(text: "Block B, Banasree, Dhaka.",fontSize: 14,fontWeight: FontWeight.w400,),
-
-                                     ],
-                                   ),
-                                   SizedBox(
-                                     child: RatingBar.builder(
-                                       initialRating: 3,
-                                       minRating: 0,
-                                       direction: Axis.horizontal,
-                                       allowHalfRating: true,
-                                       itemCount: 5,
-                                       itemSize: 20,
-                                       itemBuilder: (context, _) => Icon(
-                                         Icons.star,
-                                         color: Colors.amber,
-                                       ),
-                                       onRatingUpdate: (rating) {
-                                         print(rating);
-                                       },
-                                     ),
-                                   ),
-                                 ],
-                               ),
+                                  ],
+                                ),
 
                               ],
                             ),
                             Column(
+                              mainAxisAlignment: MainAxisAlignment.end,
                               children: [
-
-
+                                RatingBar.builder(
+                                  initialRating: 4.5,
+                                  minRating: 0,
+                                  direction: Axis.horizontal,
+                                  allowHalfRating: true,
+                                  itemCount: 5,
+                                  itemSize: 20,
+                                  itemBuilder: (context, _) => Icon(
+                                    Icons.star,
+                                    color: Colors.amber,
+                                  ),
+                                  onRatingUpdate: (rating) {
+                                    print(rating);
+                                  },
+                                ),
                               ],
-                            )
+                            ),
+                            // RatingBar on the right
 
                           ],
                         ),

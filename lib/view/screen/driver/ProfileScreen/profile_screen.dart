@@ -8,12 +8,12 @@ import 'package:ride_share_flat/view/screen/common_screen/FAQ/faq_screen.dart';
 import 'package:ride_share_flat/view/screen/common_screen/SafetyScreen/safety_screen.dart';
 import 'package:ride_share_flat/view/screen/common_screen/Terms&Services/terms_services.dart';
 import 'package:ride_share_flat/view/screen/common_screen/signIn/sign_in_screen.dart';
-import 'package:ride_share_flat/view/screen/driver/OfferScreen/offer_screen.dart';
 
 
 import '../../../../utils/app_colors.dart';
 import '../../../component/image/common_image.dart';
 import '../HistoryScreen/history_screen.dart';
+import '../WalletScreen/offer_screen.dart';
 import 'EditProfileScreen/edit_profile.dart';
 import 'OrderTracking/order_tracking.dart';
 import 'SettingsPage/settings_page.dart';
@@ -101,7 +101,7 @@ class ProfileScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 _buildTabItem(
-                    image: "assets/icons/faq.png",
+                    image: "assets/icons/walleticon.png",
                     label: "Wallet",
                     onTap:(){
                       Get.to(()=>WalletScreen());
@@ -129,12 +129,6 @@ class ProfileScreen extends StatelessWidget {
               child: Column(
                 spacing: 10,
                 children: [
-                  roleContainer(
-                    title: 'You have multiple promos.',
-        
-                    details: 'We’ll automatically apply them on that saved you.',
-                    image: 'assets/images/offerup.png',
-                  ),
                   roleContainer(title: "Schedule your ride.",
                       details:"Schedule your next trip up to 60 days ago.",
                       image: "assets/images/calender.png")

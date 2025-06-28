@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:ride_share_flat/view/component/CommonText.dart';
 import 'package:ride_share_flat/view/component/button/CommonButton.dart';
+import 'package:ride_share_flat/view/component/text_field/custom_textfield.dart';
 import 'package:ride_share_flat/view/screen/driver/HomeScreen/Widget/internet_show.dart';
 
 import '../../../../../controller/AuthController/SignInController.dart';
@@ -13,12 +14,9 @@ import '../../../../../controller/Mapcontroller/map_controller.dart';
 import '../../../../../utils/app_colors.dart';
 import '../../../../../utils/app_icons.dart';
 import '../../../../component/image/common_image.dart';
-import '../../../../component/text_field/custom_textfield.dart';
 import '../HomeChild/BookingScreen/FindingRides/RidersPickup/MessageScreen/message_screen.dart';
 import '../HomeChild/Notifications/notifications.dart';
 import 'drawer_screen.dart';
-
-// Placeholder for RideConfirmationScreen
 
 class HomeMapScreen extends StatefulWidget {
   const HomeMapScreen({super.key});
@@ -34,9 +32,7 @@ class _HomeMapScreenState extends State<HomeMapScreen> {
   TextEditingController searchLocationController = TextEditingController();
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
-  // Boolean to control the visibility of the Positioned container
   bool _isContainerVisible = true;
-  // Boolean to control the visibility of the DraggableScrollableSheet
   bool _isBottomSheetVisible = false;
 
   @override
@@ -54,10 +50,9 @@ class _HomeMapScreenState extends State<HomeMapScreen> {
     super.dispose();
   }
 
-  // Function to show the DraggableScrollableSheet
   void _showRideBottomSheet() {
     setState(() {
-      _isBottomSheetVisible = true; // Show the DraggableScrollableSheet
+      _isBottomSheetVisible = true;
     });
   }
 
@@ -67,47 +62,6 @@ class _HomeMapScreenState extends State<HomeMapScreen> {
       key: _scaffoldKey,
       drawer: HomeDrawer(),
       resizeToAvoidBottomInset: true,
-      bottomSheet: Container(
-        margin: const EdgeInsets.only(top: 5),
-        decoration: const BoxDecoration(
-          color: AppColors.background,
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(16),
-            topRight: Radius.circular(16),
-          ),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black26,
-              spreadRadius: 2,
-              blurRadius: 5,
-            ),
-          ],
-        ),
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: EdgeInsets.only(
-              bottom: MediaQuery.of(context).viewInsets.bottom,
-              left: 16,
-              right: 16,
-              top: 16,
-            ),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                // locationSearchBar(
-                //   searchLocationController: searchLocationController,
-                //   createLoadMapController: createLoadMapController,
-                //   googleApiKey: googleApiKey,
-                // ),
-                // const SizedBox(height: 16),
-                // savedAddressBox(),
-                // 24.height,
-              ],
-            ),
-          ),
-        ),
-      ),
       body: Stack(
         children: [
           Obx(() {
@@ -162,7 +116,6 @@ class _HomeMapScreenState extends State<HomeMapScreen> {
               ],
             ),
           ),
-          // Conditionally show the Positioned container
           Visibility(
             visible: _isContainerVisible,
             child: Positioned(
@@ -241,9 +194,9 @@ class _HomeMapScreenState extends State<HomeMapScreen> {
                             titleSize: 14,
                             onTap: () {
                               setState(() {
-                                _isContainerVisible = false; // Hide the Positioned container
+                                _isContainerVisible = false;
                               });
-                              _showRideBottomSheet(); // Show the DraggableScrollableSheet
+                              _showRideBottomSheet();
                             },
                           ),
                         ],
@@ -254,12 +207,11 @@ class _HomeMapScreenState extends State<HomeMapScreen> {
               ),
             ),
           ),
-          // DraggableScrollableSheet
           if (_isBottomSheetVisible)
             DraggableScrollableSheet(
-              initialChildSize: 0.35, // Start at 35% of screen height
-              minChildSize: 0.2, // Minimum 20% of screen height
-              maxChildSize: 0.7, // Maximum 70% of screen height
+              initialChildSize: 0.4, // Increased to accommodate more content
+              minChildSize: 0.2,
+              maxChildSize: 0.8,
               builder: (BuildContext context, ScrollController scrollController) {
                 return Container(
                   decoration: BoxDecoration(
@@ -278,10 +230,15 @@ class _HomeMapScreenState extends State<HomeMapScreen> {
                   ),
                   child: SingleChildScrollView(
                     controller: scrollController,
+                    padding: EdgeInsets.only(
+                      left: 16,
+                      right: 16,
+                      top: 16,
+                      bottom: MediaQuery.of(context).padding.bottom + 16, // Add bottom padding for safe area
+                    ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        // Optional: Add a drag handle
                         Center(
                           child: Container(
                             margin: EdgeInsets.symmetric(vertical: 8),
@@ -294,16 +251,14 @@ class _HomeMapScreenState extends State<HomeMapScreen> {
                           ),
                         ),
                         Padding(
-                          padding: const EdgeInsets.all(8.0),
+                          padding: const EdgeInsets.all(0),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              CommonText(text: "Pickup the passenger first.",fontSize: 16,fontWeight: FontWeight.w500,),
-                              SizedBox(height: 24,),
+                              CommonText(text: "Pickup the passenger first.", fontSize: 16, fontWeight: FontWeight.w500),
+                              SizedBox(height: 24),
                               Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
                                 crossAxisAlignment: CrossAxisAlignment.center,
-                                spacing: 10,
                                 children: [
                                   CircleAvatar(
                                     radius: 25,
@@ -318,140 +273,153 @@ class _HomeMapScreenState extends State<HomeMapScreen> {
                                       ),
                                     ),
                                   ),
+                                  SizedBox(width: 10),
                                   Column(
                                     crossAxisAlignment: CrossAxisAlignment.start,
-                                    spacing: 5,
                                     children: [
                                       CommonText(text: "Pick up at", fontSize: 14, fontWeight: FontWeight.w500),
                                       CommonText(text: "Block B, Banasree, Dhaka.", fontSize: 14, fontWeight: FontWeight.w500),
                                     ],
                                   ),
-
                                 ],
                               ),
-                              SizedBox(height: 24,),
+                              SizedBox(height: 24),
                               Container(
-                                alignment:Alignment.center,
                                 height: 59,
-                                width: 361,
+                                width: 361, // Responsive width
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(10),
-                                  border: Border.all(color: Colors.grey)
+                                  border: Border.all(color: Colors.grey),
                                 ),
                                 child: Padding(
-                                  padding: const EdgeInsets.all(5.0),
+                                  padding: const EdgeInsets.symmetric(vertical: 5),
                                   child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     children: [
                                       Column(
                                         spacing: 5,
                                         crossAxisAlignment: CrossAxisAlignment.start,
                                         children: [
-                                          CommonText(text: "Pickup",fontSize: 14,fontWeight: FontWeight.w500,),
-                                          CommonText(text: "Address: Rupatoli, Barishal",fontSize: 12,fontWeight: FontWeight.w500,),
+                                          CommonText(text: "Pickup", fontSize: 14, fontWeight: FontWeight.w500),
+                                          CommonText(text: "Address: Rupatoli, Barishal", fontSize: 12, fontWeight: FontWeight.w500),
                                         ],
                                       ),
-                                      VerticalDivider(thickness: 1,),
+                                      VerticalDivider(thickness: 1),
                                       Column(
-                                        spacing: 5,
                                         crossAxisAlignment: CrossAxisAlignment.start,
+                                        spacing: 5,
                                         children: [
-                                          CommonText(text: "Pickup",fontSize: 14,fontWeight: FontWeight.w500,),
-                                          CommonText(text: "Address: Rupatoli, Barishal",fontSize: 12,fontWeight: FontWeight.w500,),
+                                          CommonText(text: "Drop Off", fontSize: 14, fontWeight: FontWeight.w500),
+                                          CommonText(text: "Address: Banasree, Dhaka.", fontSize: 12, fontWeight: FontWeight.w500),
                                         ],
                                       ),
                                     ],
                                   ),
                                 ),
                               ),
-                              SizedBox(height: 24,),
+                              SizedBox(height: 24),
                               Row(
                                 children: [
-                                  Expanded(child: CustomTextField(hindText: "Send a free message",fieldBorderRadius: 60,prefixIcon: Icon(Icons.messenger),onTap: (){
-                                    Get.to(()=>MessageScreen());
-
-                                  },)),
-                                  IconButton(onPressed: (){
-                                    showModalBottomSheet( // ✅ Prefer `showModalBottomSheet` for better behavior
-                                      context: context,
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.only(
-                                          topLeft: Radius.circular(10),
-                                          topRight: Radius.circular(10),
-                                        ),
-                                      ),
-                                      backgroundColor: Colors.white,
-                                      isScrollControlled: true, // in case keyboard pops up
-                                      builder: (context) {
-                                        return Padding(
-                                          padding: EdgeInsets.only(
-                                            bottom: MediaQuery.of(context).viewInsets.bottom, // ✅ Avoids keyboard overlap
-                                            top: 16,
-                                            left: 16,
-                                            right: 16,
-                                          ),
-                                          child: SizedBox(
-                                            height: 216,
-                                            child: Column(
-                                              children: [
-                                                SizedBox(height: 50,),
-                                                CustomTextField(
-                                                  hindText: "Call 347 953 9042",
-                                                  fieldBorderRadius: 10,
-                                                  prefixIcon: Icon(Icons.call_outlined),
-                                                  fieldBorderColor: Colors.grey,
-                                                  textStyle: TextStyle(fontSize: 12),
-                                                ),
-                                                SizedBox(height: 16,),
-                                                CommonButton(
-                                                  titleText: "Cancel",
-                                                  buttonHeight: 56,
-                                                  buttonWidth: 361,
-                                                  titleSize: 14,
-                                                  titleWeight: FontWeight.w500,
-                                                  borderColor: Colors.grey,
-                                                  titleColor: Colors.black,
-                                                  backgroundColor: Colors.white,
-                                                  onTap: (){
-                                                    Get.back();
-                                                  },
-                                                )
-                                              ],
-                                            ),
-                                          ),
-                                        );
+                                  Expanded(
+                                    child: CustomTextField(
+                                      hindText: "Send a free message",
+                                      fieldBorderRadius: 60,
+                                      prefixIcon: Icon(Icons.messenger),
+                                      onTap: () {
+                                        Get.to(() => MessageScreen());
                                       },
-                                    );
-
-                                  }, icon: Icon(Icons.call_outlined,size: 40,)),
+                                    ),
+                                  ),
+                                  IconButton(
+                                    onPressed: () {
+                                      showModalBottomSheet(
+                                        context: context,
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.only(
+                                            topLeft: Radius.circular(10),
+                                            topRight: Radius.circular(10),
+                                          ),
+                                        ),
+                                        backgroundColor: Colors.white,
+                                        isScrollControlled: true,
+                                        builder: (context) {
+                                          return Padding(
+                                            padding: EdgeInsets.only(
+                                              bottom: MediaQuery.of(context).viewInsets.bottom,
+                                              top: 16,
+                                              left: 16,
+                                              right: 16,
+                                            ),
+                                            child: SizedBox(
+                                              height: 216,
+                                              child: Column(
+                                                children: [
+                                                  SizedBox(height: 50),
+                                                  CustomTextField(
+                                                    hindText: "Call 347 953 9042",
+                                                    fieldBorderRadius: 10,
+                                                    prefixIcon: Icon(Icons.call_outlined),
+                                                    fieldBorderColor: Colors.grey,
+                                                    textStyle: TextStyle(fontSize: 12),
+                                                  ),
+                                                  SizedBox(height: 16),
+                                                  CommonButton(
+                                                    titleText: "Cancel",
+                                                    buttonHeight: 56,
+                                                    buttonWidth: 361,
+                                                    titleSize: 14,
+                                                    titleWeight: FontWeight.w500,
+                                                    borderColor: Colors.grey,
+                                                    titleColor: Colors.black,
+                                                    backgroundColor: Colors.white,
+                                                    onTap: () {
+                                                      Get.back();
+                                                    },
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          );
+                                        },
+                                      );
+                                    },
+                                    icon: Icon(Icons.call_outlined, size: 40),
+                                  ),
                                 ],
                               ),
-                              SizedBox(height: 24,),
+                              SizedBox(height: 24),
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                                 children: [
                                   Column(
                                     children: [
-                                      CommonText(text: "EST",fontSize: 16,fontWeight: FontWeight.w500,),
-                                      CommonText(text: "6 min",fontSize: 16,fontWeight: FontWeight.w500,),
+                                      CommonText(text: "EST", fontSize: 16, fontWeight: FontWeight.w500),
+                                      CommonText(text: "6 min", fontSize: 16, fontWeight: FontWeight.w500),
                                     ],
                                   ),
                                   Column(
                                     children: [
-                                      CommonText(text: "Distance",fontSize: 16,fontWeight: FontWeight.w500,),
-                                      CommonText(text: "6 min",fontSize: 16,fontWeight: FontWeight.w500,),
+                                      CommonText(text: "Distance", fontSize: 16, fontWeight: FontWeight.w500),
+                                      CommonText(text: "6 min", fontSize: 16, fontWeight: FontWeight.w500),
                                     ],
                                   ),
                                   Column(
                                     children: [
-                                      CommonText(text: "Fare",fontSize: 16,fontWeight: FontWeight.w500,),
-                                      CommonText(text: "6 min",fontSize: 16,fontWeight: FontWeight.w500,),
+                                      CommonText(text: "Fare", fontSize: 16, fontWeight: FontWeight.w500),
+                                      CommonText(text: "6 min", fontSize: 16, fontWeight: FontWeight.w500),
                                     ],
                                   ),
                                 ],
                               ),
-                              SizedBox(height: 24,),
-
-                              CommonButton(titleText: "Start Ride",buttonHeight: 56,buttonWidth: 361,backgroundColor: Colors.black,titleColor: Colors.white,titleSize: 20,)
+                              SizedBox(height: 24),
+                              CommonButton(
+                                titleText: "Start Ride",
+                                buttonHeight: 56,
+                                buttonWidth: double.infinity, // Responsive width
+                                backgroundColor: Colors.black,
+                                titleColor: Colors.white,
+                                titleSize: 20,
+                              ),
                             ],
                           ),
                         ),

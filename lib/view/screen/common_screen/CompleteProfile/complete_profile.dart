@@ -6,6 +6,7 @@ import 'package:flutter_switch/flutter_switch.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
+import 'package:ride_share_flat/helpers/others_helper.dart';
 import 'package:ride_share_flat/view/screen/common_screen/AddPayment/add-payment.dart';
 
 import '../../../component/CommonText.dart';
@@ -61,24 +62,51 @@ class CompleteProfile extends StatelessWidget {
               SizedBox(height: 32,),
               CommonText(text: "Brand Name", fontSize: 14, fontWeight:FontWeight.w500),
               SizedBox(height: 7,),
-              CustomTextField(hindText: "Enter your name",fieldBorderRadius: 10,textStyle:TextStyle(fontSize: 14),),
+              CustomTextField(hindText: "BMW ",fieldBorderRadius: 10,textStyle:TextStyle(fontSize: 14),),
               SizedBox(height: 16,),
               CommonText(text: "Add Vehicle Model", fontSize: 14, fontWeight:FontWeight.w500),
               SizedBox(height: 7,),
-              CustomTextField(hindText: "Enter your name",fieldBorderRadius: 10,textStyle:TextStyle(fontSize: 14),),
+              CustomTextField(hindText: "BMW G05",fieldBorderRadius: 10,textStyle:TextStyle(fontSize: 14),),
               SizedBox(height: 16,),
               CommonText(text: "Add Vehicle Number", fontSize: 14, fontWeight:FontWeight.w500),
               SizedBox(height: 7,),
-              CustomTextField(hindText: "Enter your email",fieldBorderRadius: 10,textStyle:TextStyle(fontSize: 14),),
+              CustomTextField(hindText: "Dhaka D-11-9999",fieldBorderRadius: 10,textStyle:TextStyle(fontSize: 14),),
               SizedBox(height: 16,),
               CommonText(text: "Add Vehicle Colour", fontSize: 14, fontWeight:FontWeight.w500),
               SizedBox(height: 7,),
-              CustomTextField(hindText: "Enter your email",fieldBorderRadius: 10,textStyle:TextStyle(fontSize: 14),),
+              CustomTextField(hindText: "Read",fieldBorderRadius: 10,textStyle:TextStyle(fontSize: 14),),
               SizedBox(height: 24,),
               CommonText(text: "Upload Your Driving License picture", fontSize: 14, fontWeight:FontWeight.w500),
               SizedBox(height: 7,),
               DottedBorder(
-                  child:Container(
+                  child:GestureDetector(
+                    onTap: (){
+                      OtherHelper.openGallery();
+                    },
+                    child: Container(
+                      height: 153,
+                      width: 329,
+                      decoration: BoxDecoration(
+                      ),
+                      child: Column(
+                        children: [
+                          SizedBox(height: 24,),
+                          IconButton(onPressed: (){}, icon: Icon(Icons.upload,size: 40,)),
+                          CommonText(text: "Upload",fontSize: 16,fontWeight: FontWeight.w500,)
+                        ],
+                      ),
+                    ),
+                  ),
+              ),
+              SizedBox(height: 24,),
+              CommonText(text: "Upload Vehicler & Bike picture (If you have)", fontSize: 14, fontWeight:FontWeight.w500),
+              SizedBox(height: 7,),
+              DottedBorder(
+                child:GestureDetector(
+                  onTap: (){
+                    OtherHelper.openGallery();
+                  },
+                  child: Container(
                     height: 153,
                     width: 329,
                     decoration: BoxDecoration(
@@ -90,23 +118,6 @@ class CompleteProfile extends StatelessWidget {
                         CommonText(text: "Upload",fontSize: 16,fontWeight: FontWeight.w500,)
                       ],
                     ),
-                  ),
-              ),
-              SizedBox(height: 24,),
-              CommonText(text: "Upload Vehicler & Bike picture (If you have)", fontSize: 14, fontWeight:FontWeight.w500),
-              SizedBox(height: 7,),
-              DottedBorder(
-                child:Container(
-                  height: 153,
-                  width: 329,
-                  decoration: BoxDecoration(
-                  ),
-                  child: Column(
-                    children: [
-                      SizedBox(height: 24,),
-                      IconButton(onPressed: (){}, icon: Icon(Icons.upload,size: 40,)),
-                      CommonText(text: "Upload",fontSize: 16,fontWeight: FontWeight.w500,)
-                    ],
                   ),
                 ),
               ),
