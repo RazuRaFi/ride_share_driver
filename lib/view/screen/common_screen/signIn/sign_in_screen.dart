@@ -74,7 +74,7 @@ class SignInScreen extends StatelessWidget {
                     Get.to(ForgottenPassword());
 
                   },
-                    child: CommonText(text: "Forgotten Password?", fontSize: 14, fontWeight: FontWeight.w500))
+                    child: CommonText(text: "Forgot Password?", fontSize: 14, fontWeight: FontWeight.w500))
               ],
             ),
             SizedBox(height: 32,),

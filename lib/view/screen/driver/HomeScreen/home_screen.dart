@@ -8,6 +8,7 @@ import 'package:ride_share_flat/controller/DrawerController/drawer_controller.da
 import 'package:ride_share_flat/controller/HomeController/home_controller.dart';
 import 'package:ride_share_flat/helpers/my_extension.dart';
 import 'package:ride_share_flat/view/component/text_field/custom_textfield.dart';
+import 'package:ride_share_flat/view/screen/driver/HomeScreen/Widget/map_screen.dart';
 
 import '../../../../helpers/app_routes.dart';
 import '../../../../utils/app_colors.dart';
@@ -36,34 +37,7 @@ class HomeScreen extends StatelessWidget {
       backgroundColor: Colors.white,
       drawer: HomeDrawer(),
       key: _scaffoldKey,
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: Column(
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  GestureDetector(
-                    onTap: () {
-                      _scaffoldKey.currentState?.openDrawer();
-                    },
-                    child: CommonImage(
-                      imageSrc: AppIcons.drawermenu,
-                      imageType: ImageType.png,
-                      size: 24,
-                    ),
-                  ),
-                  IconButton(onPressed: (){
-                    Get.to(Notifications());
-                  }, icon: Icon(Icons.notifications_none_outlined,size: 24,))
-                ],
-              ),
-              MapScreen()
-            ],
-          ),
-        ),
-      ),
+      body: HomeMapScreen()
     );
   }
 }

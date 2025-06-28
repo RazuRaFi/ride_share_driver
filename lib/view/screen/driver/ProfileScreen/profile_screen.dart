@@ -8,6 +8,7 @@ import 'package:ride_share_flat/view/screen/common_screen/FAQ/faq_screen.dart';
 import 'package:ride_share_flat/view/screen/common_screen/SafetyScreen/safety_screen.dart';
 import 'package:ride_share_flat/view/screen/common_screen/Terms&Services/terms_services.dart';
 import 'package:ride_share_flat/view/screen/common_screen/signIn/sign_in_screen.dart';
+import 'package:ride_share_flat/view/screen/driver/OfferScreen/offer_screen.dart';
 
 
 import '../../../../utils/app_colors.dart';
@@ -102,7 +103,9 @@ class ProfileScreen extends StatelessWidget {
                 _buildTabItem(
                     image: "assets/icons/faq.png",
                     label: "Wallet",
-                    onTap:(){}),
+                    onTap:(){
+                      Get.to(()=>WalletScreen());
+                    }),
                 _buildTabItem(
                   image: "assets/icons/history.png",
                   label: "History",

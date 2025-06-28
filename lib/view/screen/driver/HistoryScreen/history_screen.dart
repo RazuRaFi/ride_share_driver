@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:ride_share_flat/view/component/CommonText.dart';
@@ -68,42 +69,61 @@ class HistoryScreen extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               spacing: 5,
                               children: [
-                                Row(
-                                  spacing: 5,
-                                  children: [
-                                    Image.asset("assets/icons/man.png",height: 20,width: 20,),
-                                    CommonText(text: "Block B, Banasree, Dhaka.",fontSize: 14,fontWeight: FontWeight.w400,),
-                                  ],
-                                ),
-                                Row(
-                                  spacing: 5,
-                                  children: [
-                                    Image.asset("assets/icons/pin.png",height: 20,),
-                                    CommonText(text: "Block B, Banasree, Dhaka.",fontSize: 14,fontWeight: FontWeight.w400,),
-                                  ],
-                                ),
+                               Column(
+                                 crossAxisAlignment: CrossAxisAlignment.start,
+                                 children: [
+                                   CommonText(text: "Pick up",fontSize: 14,fontWeight: FontWeight.w400,),
+                                   CommonText(text: "Block B, Banasree, Dhaka.",fontSize: 14,fontWeight: FontWeight.w400,),
+
+                                 ],
+                               ),
+                               Divider(thickness: 1,color: Colors.black,height: 1,),
+                               Row(
+                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                 crossAxisAlignment: CrossAxisAlignment.center,
+                                 children: [
+                                   Column(
+                                     crossAxisAlignment: CrossAxisAlignment.start,
+                                     children: [
+                                       CommonText(text: "Drop of",fontSize: 14,fontWeight: FontWeight.w400,),
+                                       CommonText(text: "Block B, Banasree, Dhaka.",fontSize: 14,fontWeight: FontWeight.w400,),
+
+                                     ],
+                                   ),
+                                   SizedBox(
+                                     child: RatingBar.builder(
+                                       initialRating: 3,
+                                       minRating: 0,
+                                       direction: Axis.horizontal,
+                                       allowHalfRating: true,
+                                       itemCount: 5,
+                                       itemSize: 20,
+                                       itemBuilder: (context, _) => Icon(
+                                         Icons.star,
+                                         color: Colors.amber,
+                                       ),
+                                       onRatingUpdate: (rating) {
+                                         print(rating);
+                                       },
+                                     ),
+                                   ),
+                                 ],
+                               ),
+
                               ],
                             ),
                             Column(
                               children: [
-                                Container(
-                                  height: 40,
-                                  width: 40,
-                                  decoration: BoxDecoration(
-                                      shape: BoxShape.circle,
-                                      border: Border.all(color: Colors.black)
-                                  ),
-                                  child:  Image.asset("assets/images/driver.png",height: 48,width: 48,),
-                                )
+
 
                               ],
                             )
 
                           ],
                         ),
-                        TextButton(onPressed: (){}, child:CommonText(text: "REQUEST AGAIN")),
                       ],
                     ),
                   ),

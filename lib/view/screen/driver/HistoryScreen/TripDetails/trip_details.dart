@@ -2,6 +2,7 @@
 import 'package:dotted_border/dotted_border.dart';
 import 'package:dotted_line/dotted_line.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:ride_share_flat/view/component/CommonText.dart';
 
 class TripDetailsScreen extends StatelessWidget {
@@ -107,18 +108,39 @@ class TripDetailsScreen extends StatelessWidget {
             ),
             SizedBox(height: 14,),
             Row(
+              mainAxisAlignment:MainAxisAlignment.spaceBetween,
               spacing: 10,
               children: [
-                Container(
-                  height: 35,
-                  width: 35,
-                  decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      border: Border.all(color: Colors.black)
-                  ),
-                  child:  Image.asset("assets/images/driver.png",height: 48,width: 48,),
+                Row(
+                  children: [
+                    Container(
+                      height: 35,
+                      width: 35,
+                      decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          border: Border.all(color: Colors.black)
+                      ),
+                      child:  Image.asset("assets/images/driver.png",height: 48,width: 48,),
+                    ),
+                    CommonText(text: "RaFiuL RaZu",fontSize: 16,fontWeight: FontWeight.w500,),
+                  ],
                 ),
-                CommonText(text: "RaFiuL RaZu",fontSize: 16,fontWeight: FontWeight.w500,),
+                RatingBar.builder(
+                  initialRating: 3,
+                  minRating: 0,
+                  direction: Axis.horizontal,
+                  allowHalfRating: true,
+                  itemCount: 5,
+                  itemSize: 20,
+                  itemBuilder: (context, _) => Icon(
+                    Icons.star,
+                    color: Colors.amber,
+                  ),
+                  onRatingUpdate: (rating) {
+                    print(rating);
+                  },
+                )
+
               ],
             ),
             SizedBox(height: 24,),
@@ -184,13 +206,6 @@ class TripDetailsScreen extends StatelessWidget {
             ),
             SizedBox(height: 24,),
 
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                CommonText(text: "REQUEST AGAIN"),
-                IconButton(onPressed: (){}, icon: Icon(Icons.arrow_forward_ios_outlined,size: 16,)),
-              ],
-            ),
 
 
           ],

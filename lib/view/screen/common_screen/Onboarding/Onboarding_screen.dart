@@ -9,18 +9,18 @@ class OnboardingScreen extends StatelessWidget {
 
   final List<Map<String, String>> onboardingData = [
     {
-      "title": "Let’s travel together",
-      "subtitle": "Make new friends",
+      "title": "Welcome to the NEXT.",
+      "subtitle": "Drive with NEXT and enjoy flexible working hours, competitive earnings, and easy navigation.",
       "image": "assets/images/splash.png",
     },
     {
-      "title": "Find a ride",
-      "subtitle": "Request a ride and be picked up on the same route by the driver",
+      "title": "Welcome to the NEXT.",
+      "subtitle": "Drive with NEXT and enjoy flexible working hours, competitive earnings, and easy navigation.",
       "image": "assets/images/onboard2.png",
     },
     {
-      "title": "Post a ride",
-      "subtitle": "Publish a ride and pick up passengers along the way",
+      "title": "Easy Onboarding.",
+      "subtitle": "Getting started is quick and easy. Sign up in minutes, upload your documents, and get approved to start driving.",
       "image": "assets/images/onboard3.png",
     },
   ];

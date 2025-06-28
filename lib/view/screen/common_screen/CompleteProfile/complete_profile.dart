@@ -6,6 +6,7 @@ import 'package:flutter_switch/flutter_switch.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
+import 'package:ride_share_flat/view/screen/common_screen/AddPayment/add-payment.dart';
 
 import '../../../component/CommonText.dart';
 import '../../../component/NavBar/common_bottom_nav.dart';
@@ -138,7 +139,11 @@ class CompleteProfile extends StatelessWidget {
                     );
                   });
                 },
-                child:CommonButton(titleText: "Next",buttonHeight: 56,buttonWidth: 361,backgroundColor: Colors.black,titleColor: Colors.white,titleSize:20,),),
+                child:CommonButton(
+                  onTap: (){
+                    Get.to(()=>AddPayment());
+                  },
+                  titleText: "Next",buttonHeight: 56,buttonWidth: 361,backgroundColor: Colors.black,titleColor: Colors.white,titleSize:20,),),
               SizedBox(height: 32,),
 
 

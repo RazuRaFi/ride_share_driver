@@ -14,6 +14,7 @@ class Assets {
   static const String iconsLogo = 'assets/icons/logo.png';
   static const String iconsLogout = 'assets/icons/logout.png';
   static const String iconsMan = 'assets/icons/man.png';
+  static const String iconsNotification = 'assets/icons/notification.png';
   static const String iconsOfffer = 'assets/icons/offfer.png';
   static const String iconsOrder = 'assets/icons/order.png';
   static const String iconsPaypal = 'assets/icons/paypal.png';
@@ -47,6 +48,7 @@ class Assets {
   static const String imagesService4 = 'assets/images/service4.png';
   static const String imagesSplash = 'assets/images/splash.png';
   static const String imagesTogether = 'assets/images/together.png';
+  static const String imagesWalletbanner = 'assets/images/walletbanner.png';
   static const String imagesWin = 'assets/images/win.png';
 
 }

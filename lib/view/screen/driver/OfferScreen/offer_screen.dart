@@ -1,9 +1,12 @@
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:ride_share_flat/view/component/CommonText.dart';
+import 'package:ride_share_flat/view/screen/driver/OfferScreen/TransactionDetails/transaction_details.dart';
 
-class OffeScreen extends StatelessWidget {
-  const OffeScreen({super.key});
+class WalletScreen extends StatelessWidget {
+  const WalletScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -11,7 +14,7 @@ class OffeScreen extends StatelessWidget {
       backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.white,
-        title: CommonText(text: "Offers",fontSize: 16,fontWeight: FontWeight.w500,),
+        title: CommonText(text: "Wallet",fontSize: 16,fontWeight: FontWeight.w500,),
         centerTitle: true,
       ),
       body: Padding(
@@ -20,47 +23,99 @@ class OffeScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              CommonText(text: "User the promo before it expires",fontSize: 16,fontWeight: FontWeight.w500,),
               SizedBox(height: 16,),
-              ListView.builder(
-                shrinkWrap: true,
-                  physics: ScrollPhysics(),
-                  itemCount: 5,
-                  itemBuilder: (context,index){
-                return Container(
-                  margin: EdgeInsets.symmetric(vertical: 5),
-                  padding: EdgeInsets.symmetric(horizontal: 10),
-                  height:125,
-                  width: 361,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    border: Border.all(color: Colors.grey),
+              Stack(
+                children: [
+                  Container(
+                    height: 204,
+                    width: 354,
+                    child: Image.asset("assets/images/walletbanner.png",fit: BoxFit.cover,),
                   ),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    spacing: 10,
-                    children: [
-                      Image.asset("assets/icons/offfer.png",height: 35,width: 35,),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          spacing: 10,
-                          children: [
-                            CommonText(text: "Welcome10",fontSize: 16,fontWeight: FontWeight.w500,),
-                            CommonText(
-                              textAlign:TextAlign.start,
-                              text: "20% Discount on your next ride (up to \$10 for minimum charge of \$50.",maxLines: 2,),
-                            CommonText(text: "Valid till July 05,2024"),
-                          ],
-                        ),
-                      )
-                    ],
+                  Positioned(
+                    top: 50,
+                      left: 10,
+                      right: 10,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                                              children: [
+                          CommonText(text: "YOUR TOTAL BALANCE",fontSize: 14,fontWeight: FontWeight.w500,color: Colors.white,),
+                          CommonText(text: "\$55,000.00",fontSize: 20,fontWeight: FontWeight.w500,color: Colors.white,),
+                                              ],
+                                            ),
+                          IconButton(onPressed: (){}, icon: Icon(Icons.visibility,size: 30,color: Colors.white,))
+                        ],
+                      ))
+                ],
+
+              ),
+              SizedBox(height: 10,),
+              CommonText(text: "Recent Transaction",fontSize: 16,fontWeight: FontWeight.w500,),
+              SizedBox(height: 10,),
+          SingleChildScrollView(
+            scrollDirection: Axis.vertical,
+            child: Container(
+              decoration: BoxDecoration(
+              ),
+              child: DataTable(
+                columnSpacing: 12.0,
+                headingRowColor: MaterialStateProperty.all(Color(0xFFBBDEFB)),
+                headingRowHeight: 40,
+                horizontalMargin: 20,
+                columns: [
+                  DataColumn(label: Text('Sl')),
+                  DataColumn(label: Text('Name')),
+                  DataColumn(label: Text('Trip No.')),
+                  DataColumn(label: Text('Date')),
+                  DataColumn(label: Text('Amount')),
+                ],
+                rows: [
+                  DataRow(cells: [
+                    DataCell(Text('01')),
+                    DataCell(Text('Santiago Dslab')),
+                    DataCell(Text('#G6BF78')),
+                    DataCell(Text('03-07-24')),
+                    DataCell(Text('\$300')),
+                  ],
+                    onLongPress: (){
+                    Get.to(()=>TransactionDetails());
+                    }
+
                   ),
-                );
-              }),
-              SizedBox(height: 24,),
+                  DataRow(cells: [
+                    DataCell(Text('01')),
+                    DataCell(Text('Santiago Dslab')),
+                    DataCell(Text('#G6BF78')),
+                    DataCell(Text('03-07-24')),
+                    DataCell(Text('\$300')),
+                  ]),
+                  DataRow(cells: [
+                    DataCell(Text('01')),
+                    DataCell(Text('Santiago Dslab')),
+                    DataCell(Text('#G6BF78')),
+                    DataCell(Text('03-07-24')),
+                    DataCell(Text('\$300')),
+                  ]),
+                  DataRow(cells: [
+                    DataCell(Text('01')),
+                    DataCell(Text('Santiago Dslab')),
+                    DataCell(Text('#G6BF78')),
+                    DataCell(Text('03-07-24')),
+                    DataCell(Text('\$300')),
+                  ]),
+                  DataRow(cells: [
+                    DataCell(Text('01')),
+                    DataCell(Text('Santiago Dslab')),
+                    DataCell(Text('#G6BF78')),
+                    DataCell(Text('03-07-24')),
+                    DataCell(Text('\$300')),
+                  ]),
+                ],
+              ),
+            ),
+          ),
           
             ],
           ),

@@ -9,6 +9,7 @@ import 'package:ride_share_flat/view/screen/common_screen/FAQ/faq_screen.dart';
 import 'package:ride_share_flat/view/screen/common_screen/SafetyScreen/safety_screen.dart';
 import 'package:ride_share_flat/view/screen/common_screen/Terms&Services/terms_services.dart';
 import 'package:ride_share_flat/view/screen/common_screen/together_screen/together_screen.dart';
+import 'package:ride_share_flat/view/screen/driver/HomeScreen/HomeChild/Notifications/notifications.dart';
 
 import '../../../../../../utils/app_colors.dart';
 import '../../../../../../utils/app_icons.dart';
@@ -83,6 +84,13 @@ class HomeDrawer extends StatelessWidget {
             icon:"assets/icons/order.png",
             onTap: () {
               Get.to(OrderTracking());
+            },
+          ),
+          DrawerItem(
+            title: "Notifications",
+            icon:"assets/icons/notification.png",
+            onTap: () {
+              Get.to(Notifications());
             },
           ),
           DrawerItem(

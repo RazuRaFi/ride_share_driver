@@ -14,7 +14,7 @@ class FAQScreen extends StatelessWidget {
       backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.white,
-        title: CommonText(text: "Terms of Services",fontSize: 16,fontWeight: FontWeight.w500,),
+        title: CommonText(text: "FAQ",fontSize: 16,fontWeight: FontWeight.w500,),
         centerTitle: true,
       ),
       body: Padding(

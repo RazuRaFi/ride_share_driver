@@ -18,7 +18,7 @@ class NavController extends GetxController {
 
   final List<Widget> pages = [
     HomeScreen(),
-    OffeScreen(),
+    WalletScreen(),
     HistoryScreen(),
     ProfileScreen(),
   ];
