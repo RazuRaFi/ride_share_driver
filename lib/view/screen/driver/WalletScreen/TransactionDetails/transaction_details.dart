@@ -13,7 +13,7 @@ class TransactionDetailPage extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.white ,
         title: CommonText(text: "Transactions Details",fontSize: 16,fontWeight: FontWeight.w500,),
         centerTitle: true,
       ),
