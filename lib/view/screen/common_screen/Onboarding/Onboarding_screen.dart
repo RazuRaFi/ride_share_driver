@@ -11,7 +11,7 @@ class OnboardingScreen extends StatelessWidget {
     {
       "title": "Welcome to the NEXT.",
       "subtitle": "Drive with NEXT and enjoy flexible working hours, competitive earnings, and easy navigation.",
-      "image": "assets/images/splash.png",
+      "image": "assets/images/logoon.png",
     },
     {
       "title": "Welcome to the NEXT.",
