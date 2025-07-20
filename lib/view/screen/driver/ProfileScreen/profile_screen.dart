@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:ride_share_flat/controller/Profile/profile_controller.dart';
 import 'package:ride_share_flat/helpers/my_extension.dart';
+import 'package:ride_share_flat/services/api_services.dart';
+import 'package:ride_share_flat/utils/app_urls.dart';
 import 'package:ride_share_flat/view/component/CommonText.dart';
 import 'package:ride_share_flat/view/component/button/CommonButton.dart';
 import 'package:ride_share_flat/view/screen/common_screen/FAQ/faq_screen.dart';
@@ -18,11 +21,25 @@ import 'EditProfileScreen/edit_profile.dart';
 import 'OrderTracking/order_tracking.dart';
 import 'SettingsPage/settings_page.dart';
 
-class ProfileScreen extends StatelessWidget {
-  const ProfileScreen({super.key});
+class ProfileScreen extends StatefulWidget {
+  ProfileScreen({super.key});
+
+  @override
+  State<ProfileScreen> createState() => _ProfileScreenState();
+}
+
+class _ProfileScreenState extends State<ProfileScreen> {
+  final ProfileController controller=Get.put(ProfileController());
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    controller.getMyProfile();
+  }
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -44,34 +61,44 @@ class ProfileScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Row(
-                    spacing: 10,
-                    children: [
-                      Container(
-                        height: 74,
-                        width: 74,
-                        decoration: BoxDecoration(shape: BoxShape.circle),
-                        child: Image.asset("assets/images/profileimage.png"),
-                      ),
-                      Column(
-                        spacing: 5,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          CommonText(
-                            text: "RaFiuL RaZu",
-                            fontSize: 16,
-                            fontWeight: FontWeight.w500,
+                  Obx((){
+                    return controller.isGetProfile.value
+                        ? Center(child: CircularProgressIndicator(),)
+                        : Row(
+                      spacing: 10,
+                      children: [
+                        Container(
+                          height: 74,
+                          width: 74,
+                          decoration: BoxDecoration(shape: BoxShape.circle),
+                          child:ClipOval(
+                            child: CommonImage(
+                              imageSrc:
+                              "${AppUrls.imageUrl}${controller.profileDetailsModel.user.profileImage}",
+                              imageType: ImageType.network,
+                              fill: BoxFit.fill,
+                            ),
                           ),
-                          CommonText(
-                            text: "+123 456 789",
-                            fontSize: 14,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-        
+                        ),
+                        Column(
+                          spacing: 5,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            CommonText(
+                              text: controller.profileDetailsModel.user.fullName,
+                              fontSize: 16,
+                              fontWeight: FontWeight.w500,
+                            ),
+                            CommonText(
+                              text:controller.profileDetailsModel.user.phone,
+                              fontSize: 14,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ],
+                        ),
+                      ],
+                    );
+                  }),
                   GestureDetector(
                     onTap: () {
                       Get.to(EditProfileScreen());
@@ -248,10 +275,10 @@ class ProfileScreen extends StatelessWidget {
             SizedBox(height: 24),
 
 
-        
-        
-        
-        
+
+
+
+
           ],
         ),
       ),

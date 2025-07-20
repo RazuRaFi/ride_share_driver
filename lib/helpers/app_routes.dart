@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:ride_share_flat/view/component/NavBar/common_bottom_nav.dart';
 import 'package:ride_share_flat/view/screen/common_screen/CreatePassword/create_new_password.dart';
 import 'package:ride_share_flat/view/screen/common_screen/EmailVerification/email_verification.dart';
 import 'package:ride_share_flat/view/screen/common_screen/ForgottenPassword/forgottern_password.dart';
@@ -6,6 +7,7 @@ import 'package:ride_share_flat/view/screen/common_screen/Onboarding/Onboarding_
 import 'package:ride_share_flat/view/screen/common_screen/SignUp/SIgn_up_screen.dart';
 import 'package:ride_share_flat/view/screen/common_screen/signIn/sign_in_screen.dart';
 import 'package:ride_share_flat/view/screen/common_screen/splash/splash_screen.dart';
+import 'package:ride_share_flat/view/screen/common_screen/together_screen/together_screen.dart';
 import 'package:ride_share_flat/view/test_screen.dart';
 
 import '../view/screen/driver/HomeScreen/HomeChild/BookingScreen/FindingRides/RidersPickup/DirverArrived/DriverBegun/ConfirmPayment/confirm_payment.dart';
@@ -48,6 +50,7 @@ class AppRoutes {
   static const String driverArrived = "/driverArrived.dart";
   static const String driverbegun = "/driverbegun.dart";
   static const String confirmPayment = "/confirmPayment.dart";
+  static const String togetherScreen = "/togetherScreen.dart";
 
 
   static const String roleSelectionScreen = "/role_selection_screen.dart";
@@ -90,10 +93,10 @@ class AppRoutes {
         name: signUp,
         page: () => SignUpScreen(),
         transition: Transition.fade),
-    // GetPage(
-    //     name: verifyUser,
-    //     page: () => const EmailVerification(),
-    //     transition: Transition.fade),
+    GetPage(
+        name: togetherScreen,
+        page: () =>  TogetherScreen(),
+        transition: Transition.fade),
     GetPage(
         name: signIn,
         page: () => SignInScreen(),
@@ -104,7 +107,7 @@ class AppRoutes {
         transition: Transition.fade),
     GetPage(
         name: verifyEmail,
-        page: () => const EmailVerification(),
+        page: () => EmailVerification(),
         transition: Transition.fade),
     GetPage(
         name: createPassword,
@@ -129,6 +132,10 @@ class AppRoutes {
     GetPage(
         name:confirmPayment,
         page: () => ConfirmPayment(),
+        transition: Transition.fade),
+    GetPage(
+        name:navBarScreen,
+        page: () => NavBarScreen(),
         transition: Transition.fade),
 
   ];

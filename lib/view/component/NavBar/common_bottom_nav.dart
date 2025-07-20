@@ -16,23 +16,25 @@ class NavBarScreen extends StatelessWidget {
      return Obx(() => Scaffold(
        backgroundColor: Colors.white,
       body: navController.pages[navController.selectedIndex.value],
-       bottomNavigationBar: SizedBox(
-         height: 80,
-         child: BottomNavigationBar(
-           backgroundColor: Colors.white,
-           currentIndex: navController.selectedIndex.value,
-           onTap: navController.changeTab,
-           selectedItemColor: Colors.black,
-           unselectedItemColor: Colors.black45,
-           selectedFontSize: 15,
-           unselectedFontSize: 14,
-           type: BottomNavigationBarType.fixed,
-           items: const [
-             BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
-             BottomNavigationBarItem(icon: Icon(Icons.bar_chart), label: "Earning"),
-             BottomNavigationBarItem(icon: Icon(Icons.history), label: "History"),
-             BottomNavigationBarItem(icon: Icon(Icons.person), label: "Profile"),
-           ],
+       bottomNavigationBar: Padding(
+         padding: const EdgeInsets.symmetric(vertical: 10),
+         child: SizedBox(
+           child: BottomNavigationBar(
+             backgroundColor: Colors.white,
+             currentIndex: navController.selectedIndex.value,
+             onTap: navController.changeTab,
+             selectedItemColor: Colors.black,
+             unselectedItemColor: Colors.black45,
+             selectedFontSize: 15,
+             unselectedFontSize: 14,
+             type: BottomNavigationBarType.fixed,
+             items: const [
+               BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
+               BottomNavigationBarItem(icon: Icon(Icons.bar_chart), label: "Earning"),
+               BottomNavigationBarItem(icon: Icon(Icons.history), label: "History"),
+               BottomNavigationBarItem(icon: Icon(Icons.person), label: "Profile"),
+             ],
+           ),
          ),
        ),
 
