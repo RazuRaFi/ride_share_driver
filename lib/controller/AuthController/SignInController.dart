@@ -4,6 +4,7 @@ import 'dart:developer';
 
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../helpers/app_routes.dart';
 import '../../helpers/pref_helper.dart';
@@ -19,6 +20,23 @@ class SignInController extends GetxController{
 
   void toggleRemembered(bool value) {
     isRemembered.value = value;
+  }
+
+  @override
+  void onInit() {
+    super.onInit();
+    loadRememberMe();
+  }
+
+  Future<void> loadRememberMe() async {
+    final prefs = await SharedPreferences.getInstance();
+    isRemembered.value= prefs.getBool('rememberMe') ?? false;
+  }
+
+  Future<void> toggleRememberMe(bool value) async {
+    isRemembered.value = value;
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setBool('rememberMe', value);
   }
 
   Future<void> signInUser() async {

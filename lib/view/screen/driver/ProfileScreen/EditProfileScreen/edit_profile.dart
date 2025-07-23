@@ -20,12 +20,13 @@ class EditProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final TextEditingController textEditingController=TextEditingController();
     void countryChange(Country country) {
       print("Selected Country: ${country.name}");
       print("Dial Code: ${country.dialCode}");
       print("Country Code: ${country.code}");
+
     }
+
 
     return Scaffold(
       backgroundColor: Colors.white,

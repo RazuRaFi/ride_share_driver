@@ -1,13 +1,31 @@
 
 import 'package:flutter/material.dart';
+import 'package:flutter_html/flutter_html.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
+import 'package:ride_share_flat/controller/SettingController/terms_controller.dart';
 import 'package:ride_share_flat/view/component/CommonText.dart';
 
-class TermsServices extends StatelessWidget {
-  const TermsServices({super.key});
+class TermsServices extends StatefulWidget {
+   TermsServices({super.key});
+
+
+  @override
+  State<TermsServices> createState() => _TermsServicesState();
+}
+
+class _TermsServicesState extends State<TermsServices> {
+ final TermsController termsController=Get.put(TermsController());
+ @override
+  void initState() {
+    termsController.getTerms();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
-    final int index=0;
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -15,37 +33,20 @@ class TermsServices extends StatelessWidget {
         title: CommonText(text: "Terms of Services",fontSize: 16,fontWeight: FontWeight.w500,),
         centerTitle: true,
       ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16),
-        child: Column(
-          children: [
-            SizedBox(height: 24,),
-            ListView.builder(
-              itemCount: 5,
-                shrinkWrap: true,
-                physics: ScrollPhysics(),
-                itemBuilder: (context,index){
-              return Container(
-                margin: EdgeInsets.symmetric(vertical: 10),
-                child: Row(
-                  spacing: 10,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    CommonText(text:"${index+1}",fontSize: 14,fontWeight: FontWeight.w500,),
-                    Expanded(
-                      child: Container(
-                        child: CommonText(
-                          textAlign: TextAlign.start,
-                            text: "Lorem ipsum dolor sit amet consectetur. Imperdiet iaculis convallis bibendum massa id elementum consectetur neque mauris.",maxLines: 4,fontSize: 14,fontWeight: FontWeight.w400,),
-                      ),
-                    )
-                  ],
-                ),
-              );
-            })
-          ],
-        ),
-      ),
+      body: Obx(() {
+        return termsController.isLoading.value
+            ? const Center(
+          child: CircularProgressIndicator(color: Colors.blueAccent),
+        )
+            : termsController.termsData.isEmpty
+            ? const Center(child: CommonText(text: "Terms Data is Empty"))
+            : SingleChildScrollView(
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 14.w),
+            child: Html(data: termsController.termsData.value,),
+          ),
+        );
+      }),
     );
   }
 }
