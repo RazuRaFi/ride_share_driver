@@ -6,15 +6,30 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:ride_share_flat/helpers/others_helper.dart';
 import 'package:ride_share_flat/view/component/text_field/custom_textfield.dart';
 
+import '../../../../../../../controller/OrderTracking/order_tracking_controller.dart';
+import '../../../../../../../utils/app_urls.dart';
 import '../../../../../../component/CommonText.dart';
 import '../../../../../../component/button/CommonButton.dart';
+import '../../../../../../component/image/common_image.dart';
 import '../../../../HomeScreen/HomeChild/BookingScreen/FindingRides/RidersPickup/MessageScreen/message_screen.dart';
 
-class TripDetailsOrder extends StatelessWidget {
-  const TripDetailsOrder({super.key});
+class TripDetailsOrder extends StatefulWidget {
+  const TripDetailsOrder({super.key,});
 
+  @override
+  State<TripDetailsOrder> createState() => _TripDetailsOrderState();
+}
+
+class _TripDetailsOrderState extends State<TripDetailsOrder> {
+  final RideController rideController=Get.put(RideController());
+  @override
+  void initState() {
+    rideController.getRiderDetails();
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,14 +54,14 @@ class TripDetailsOrder extends StatelessWidget {
                     spacing: 5,
                     children: [
                       CommonText(text: "Trip ID",fontSize: 14,fontWeight: FontWeight.w500,),
-                      CommonText(text: "#GD62G",fontSize: 14,fontWeight: FontWeight.w500,),
+                      CommonText(text: rideController.riderDetailsModel.passenger.id,fontSize: 14,fontWeight: FontWeight.w500,),
                     ],
                   ),
                   Row(
                     children: [
                       IconButton(onPressed: (){}, icon: Icon(Icons.copy)),
                       CommonText(text: "COPY",fontSize: 14,fontWeight: FontWeight.w500,),
-          
+
                     ],
                   )
                 ],
@@ -71,11 +86,11 @@ class TripDetailsOrder extends StatelessWidget {
                           spacing: 5,
                           children: [
                             Image.asset("assets/icons/car.png",height: 28,width: 28,),
-                            CommonText(text: "CAR",fontSize: 14,fontWeight: FontWeight.w500,),
+                            CommonText(text: rideController.riderDetailsModel.vehicleType,fontSize: 14,fontWeight: FontWeight.w500,),
                           ],
                         ),
                       ),
-          
+
                     ],
                   )
                 ],
@@ -84,8 +99,8 @@ class TripDetailsOrder extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  CommonText(text: "25 June 2024, 04:40 PM",fontSize: 16,fontWeight: FontWeight.w500,),
-          
+                  CommonText(text:OtherHelper.formatDateTime(rideController.riderDetailsModel.pickupDate,rideController.riderDetailsModel.pickupTime),fontSize: 16,fontWeight: FontWeight.w500,),
+
                 ],
               ),
               SizedBox(height: 14,),
@@ -93,47 +108,32 @@ class TripDetailsOrder extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     spacing: 10,
                     children: [
                       Row(
                         spacing: 5,
                         children: [
                           Image.asset("assets/icons/man.png",height: 20,width: 20,),
-                          CommonText(text: "Block B, Banasree, Dhaka.",fontSize: 14,fontWeight: FontWeight.w400,),
+                          CommonText(text: rideController.riderDetailsModel.pickupLocation.address,fontSize: 14,fontWeight: FontWeight.w400,),
                         ],
                       ),
                       Row(
                         spacing: 5,
                         children: [
-                          Image.asset("assets/icons/pin.png",height: 20,),
-                          CommonText(text: "Block B, Banasree, Dhaka.",fontSize: 14,fontWeight: FontWeight.w400,),
+                          Image.asset("assets/icons/pin.png",height: 20,width: 20,),
+                          CommonText(text: rideController.riderDetailsModel.dropoffLocation.address,fontSize: 14,fontWeight: FontWeight.w400,),
                         ],
                       ),
                     ],
                   ),
-          
-                ],
-              ),
-              SizedBox(height: 14,),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  CommonText(text: "Distance"),
-                  CommonText(text: "6.7 Km"),
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  CommonText(text: "Estimated Riding Time"),
-                  CommonText(text: "45 min"),
+
                 ],
               ),
               SizedBox(height: 24,),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  CommonText(text: "Driver Info"),
                   SizedBox(height: 14,),
                   Row(
                     spacing: 10,
@@ -145,47 +145,19 @@ class TripDetailsOrder extends StatelessWidget {
                             shape: BoxShape.circle,
                             border: Border.all(color: Colors.black)
                         ),
-                        child:  Image.asset("assets/images/driver.png",height: 48,width: 48,),
+                        child: ClipOval(
+                          child: CommonImage(
+                            imageSrc:
+                            "${AppUrls.imageUrl}${rideController.riderDetailsModel.driver.profileImage}",
+                            imageType: ImageType.network,
+                            fill: BoxFit.fill,
+                          ),
+                        ),
                       ),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          CommonText(text: "RaFiuL RaZu",fontSize: 16,fontWeight: FontWeight.w500,),
-                          FittedBox(
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                              RatingBar.builder(
-                              initialRating: 3,
-                              minRating: 0,
-                              direction: Axis.horizontal,
-                              allowHalfRating: true,
-                              itemCount: 1,
-                              itemSize: 22,
-                              itemBuilder: (context, _) => Icon(
-                                Icons.star,
-                                color: Colors.amber,
-                              ),
-                              onRatingUpdate: (rating) {
-                                print(rating);
-                              },
-                            ),
-                                VerticalDivider(thickness: 1,),
-                                CommonText(text: "4.65"),
-                                VerticalDivider(thickness: 1,),
-                                CommonText(text: "2534 Trips"),
-                                VerticalDivider(thickness: 1,),
-          
-                                Row(
-                                  spacing: 5,
-                                  children: [
-                                    Image.asset("assets/icons/car.png",height: 28,width: 28,),
-                                    CommonText(text: "CAR",fontSize: 14,fontWeight: FontWeight.w500,),
-                                  ],
-                                )
-                              ],
-                            ),
-                          )
+                          CommonText(text: rideController.riderDetailsModel.driver.fullName,fontSize: 16,fontWeight: FontWeight.w500,),
                         ],
                       )
                     ],
@@ -193,7 +165,8 @@ class TripDetailsOrder extends StatelessWidget {
                   SizedBox(height: 20,),
                   Row(
                     children: [
-                      Expanded(child: CustomTextField(hindText: "Send a free message",fieldBorderRadius: 60,prefixIcon: Icon(Icons.messenger),
+                      Expanded(child: CustomTextField(
+                        hindText: "Send a free message",fieldBorderRadius: 60,prefixIcon: Icon(Icons.message),
                         onTap: (){
                         Get.to(()=>MessageScreen());
                         },)),
@@ -252,24 +225,71 @@ class TripDetailsOrder extends StatelessWidget {
                       }, icon: Icon(Icons.call_outlined,size: 40,)),
                     ],
                   ),
-                ],
-              ),
-              SizedBox(height: 200,),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  CommonText(text: "Cancel this ride?"),
-                  Row(
+                  SizedBox(height: 34,),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    spacing: 15,
                     children: [
-                      CommonText(text: "Cancel now",color: Colors.red,),
-                      IconButton(onPressed: (){}, icon: Icon(Icons.cancel_outlined,size: 16,color: Colors.red,)),
+                      CommonText(text: "Receipt"),
+                      SizedBox(height:5,),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          CommonText(text: "Base fare"),
+                          CommonText(text: "\$${rideController.riderDetailsModel.fare.toString()}"),
+                        ],
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          CommonText(text: "Distance"),
+                          CommonText(text: "${rideController.riderDetailsModel.distance}"),
+                        ],
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          CommonText(text: "Time"),
+                          CommonText(text: "\$0.06"),
+                        ],
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          CommonText(text: "Safety Coverage Fee"),
+                          CommonText(text: "\$0.04"),
+                        ],
+                      ),
+                      DottedLine(dashColor: Colors.red.shade300,),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          CommonText(text: "Subtotal"),
+                          CommonText(text: "\$17"),
+                        ],
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          CommonText(text: "Discount"),
+                          CommonText(text: "-\$6"),
+                        ],
+                      ),
+                      DottedLine(dashColor: Colors.red.shade300,),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          CommonText(text: "Net fare"),
+                          CommonText(text: "\$11"),
+                        ],
+                      ),
+
                     ],
                   ),
-          
                 ],
               ),
-          
-          
+
+
             ],
           ),
         ),

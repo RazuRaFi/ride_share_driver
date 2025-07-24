@@ -41,7 +41,7 @@ class OrderTracking extends StatelessWidget {
               child: TabBarView(
                 children: [
                   PendingPage(),
-                  CompletePage()
+                CompletePage()
                 ],
               ),
             ),

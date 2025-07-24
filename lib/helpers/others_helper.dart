@@ -5,6 +5,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:intl/intl.dart';
 
 import '../utils/app_colors.dart';
 
@@ -137,4 +138,24 @@ class OtherHelper {
     }
     return '';
   }
+
+
+  static String formatDateTime(String dateStr, String timeStr) {
+    try {
+      DateTime dateTime = DateTime.parse(dateStr);
+      String formattedDate = DateFormat('d MMM yyyy').format(dateTime);
+      return '$formattedDate, $timeStr';
+    } catch (e) {
+      return '';
+    }
+  }
+  static String formatDate(String dateTimeStr) {
+    try {
+      DateTime dateTime = DateTime.parse(dateTimeStr);
+      return DateFormat('d MMM yyyy, h:mm a').format(dateTime);
+    } catch (e) {
+      return '';
+    }
+  }
+
 }
