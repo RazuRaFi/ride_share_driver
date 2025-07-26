@@ -1,18 +1,18 @@
-class DriverDetailsModel {
+class CompleteRideModel {
   final String id;
   final Passenger passenger;
   final Driver driver;
   final String vehicleType;
   final String status;
   final String ridePaymentMethod;
-  final LocationDetails pickupLocation;
-  final LocationDetails dropoffLocation;
+  final RideLocation pickupLocation;
+  final RideLocation dropoffLocation;
   final String startTime;
   final String endTime;
   final String rideTotalTime;
+  final double payment;
   final double fare;
   final double distance;
-  final double payment;
   final double driverRating;
   final double passengerRating;
   final String pickupDate;
@@ -28,7 +28,7 @@ class DriverDetailsModel {
   final String createdAt;
   final String updatedAt;
 
-  DriverDetailsModel({
+  CompleteRideModel({
     required this.id,
     required this.passenger,
     required this.driver,
@@ -40,9 +40,9 @@ class DriverDetailsModel {
     required this.startTime,
     required this.endTime,
     required this.rideTotalTime,
+    required this.payment,
     required this.fare,
     required this.distance,
-    required this.payment,
     required this.driverRating,
     required this.passengerRating,
     required this.pickupDate,
@@ -59,22 +59,22 @@ class DriverDetailsModel {
     required this.updatedAt,
   });
 
-  factory DriverDetailsModel.fromJson(Map<String, dynamic> json) {
-    return DriverDetailsModel(
+  factory CompleteRideModel.fromJson(Map<String, dynamic> json) {
+    return CompleteRideModel(
       id: json['_id'] ?? '',
       passenger: Passenger.fromJson(json['passengerId'] ?? {}),
       driver: Driver.fromJson(json['driverId'] ?? {}),
       vehicleType: json['vehicle_type'] ?? '',
       status: json['status'] ?? '',
       ridePaymentMethod: json['ride_payment_method'] ?? '',
-      pickupLocation: LocationDetails.fromJson(json['pickupLocation'] ?? {}),
-      dropoffLocation: LocationDetails.fromJson(json['dropofLocation'] ?? {}),
+      pickupLocation: RideLocation.fromJson(json['pickupLocation'] ?? {}),
+      dropoffLocation: RideLocation.fromJson(json['dropofLocation'] ?? {}),
       startTime: json['startTime'] ?? '',
       endTime: json['endTime'] ?? '',
       rideTotalTime: json['rideTotalTime'] ?? '',
+      payment: (json['payment'] ?? 0).toDouble(),
       fare: (json['fare'] ?? 0).toDouble(),
       distance: (json['distance'] ?? 0).toDouble(),
-      payment: (json['payment'] ?? 0).toDouble(),
       driverRating: (json['driverRating'] ?? 0).toDouble(),
       passengerRating: (json['passengerRating'] ?? 0).toDouble(),
       pickupDate: json['pickupDate'] ?? '',
@@ -133,34 +133,34 @@ class Driver {
   }
 }
 
-class LocationDetails {
+class RideLocation {
   final String address;
-  final Coordinates location;
+  final Location location;
 
-  LocationDetails({
+  RideLocation({
     required this.address,
     required this.location,
   });
 
-  factory LocationDetails.fromJson(Map<String, dynamic> json) {
-    return LocationDetails(
+  factory RideLocation.fromJson(Map<String, dynamic> json) {
+    return RideLocation(
       address: json['address'] ?? '',
-      location: Coordinates.fromJson(json['location'] ?? {}),
+      location: Location.fromJson(json['location'] ?? {}),
     );
   }
 }
 
-class Coordinates {
+class Location {
   final String type;
   final List<double> coordinates;
 
-  Coordinates({
+  Location({
     required this.type,
     required this.coordinates,
   });
 
-  factory Coordinates.fromJson(Map<String, dynamic> json) {
-    return Coordinates(
+  factory Location.fromJson(Map<String, dynamic> json) {
+    return Location(
       type: json['type'] ?? '',
       coordinates: (json['coordinates'] as List<dynamic>?)
           ?.map((e) => (e as num).toDouble())

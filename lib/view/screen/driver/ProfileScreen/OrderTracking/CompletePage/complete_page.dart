@@ -3,9 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:ride_share_flat/controller/OrderTracking/order_tracking_controller.dart';
+import 'package:ride_share_flat/helpers/others_helper.dart';
 import 'package:ride_share_flat/view/component/button/CommonButton.dart';
 
+import '../../../../../../utils/app_urls.dart';
 import '../../../../../component/CommonText.dart';
+import '../../../../../component/image/common_image.dart';
 import '../../../HistoryScreen/TripDetails/trip_details.dart';
 
 class CompletePage extends StatefulWidget {
@@ -17,6 +20,12 @@ class CompletePage extends StatefulWidget {
 
 class _CompletePageState extends State<CompletePage> {
   final RideController controller=Get.put(RideController());
+
+  @override
+  void initState() {
+  controller.getCompleteRide();
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,9 +42,10 @@ class _CompletePageState extends State<CompletePage> {
                 ListView.builder(
                     shrinkWrap: true,
                     physics: ScrollPhysics(),
-                    itemCount: 4,
+                    itemCount:controller.completeList.length,
                     scrollDirection: Axis.vertical,
                     itemBuilder: (context,index){
+                      final complete=controller.completeList[index];
                       return GestureDetector(
                         onTap: (){
                           Get.to(TripDetailsScreen());
@@ -57,7 +67,7 @@ class _CompletePageState extends State<CompletePage> {
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
-                                    CommonText(text: "25 June 2024, 04:40 PM",fontSize: 16,fontWeight: FontWeight.w500,),
+                                    CommonText(text:OtherHelper.formatDate(complete.endTime),fontSize: 16,fontWeight: FontWeight.w500,),
 
                                   ],
                                 ),
@@ -65,20 +75,21 @@ class _CompletePageState extends State<CompletePage> {
                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
                                     Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
                                       spacing: 5,
                                       children: [
                                         Row(
                                           spacing: 5,
                                           children: [
                                             Image.asset("assets/icons/man.png",height: 20,width: 20,),
-                                            CommonText(text: "Block B, Banasree, Dhaka.",fontSize: 14,fontWeight: FontWeight.w400,),
+                                            CommonText(text: complete.pickupLocation.address,fontSize: 14,fontWeight: FontWeight.w400,),
                                           ],
                                         ),
                                         Row(
                                           spacing: 5,
                                           children: [
-                                            Image.asset("assets/icons/pin.png",height: 20,),
-                                            CommonText(text: "Block B, Banasree, Dhaka.",fontSize: 14,fontWeight: FontWeight.w400,),
+                                            Image.asset("assets/icons/pin.png",height: 20,width: 20,),
+                                            CommonText(text: complete.dropoffLocation.address,fontSize: 14,fontWeight: FontWeight.w400,),
                                           ],
                                         ),
                                       ],
@@ -92,7 +103,14 @@ class _CompletePageState extends State<CompletePage> {
                                               shape: BoxShape.circle,
                                               border: Border.all(color: Colors.black)
                                           ),
-                                          child:  Image.asset("assets/images/driver.png",height: 48,width: 48,),
+                                          child:ClipOval(
+                                            child: CommonImage(
+                                              imageSrc:
+                                              "${AppUrls.imageUrl}${complete.passenger.profileImage}",
+                                              imageType: ImageType.network,
+                                              fill: BoxFit.fill,
+                                            ),
+                                          ),
                                         )
 
                                       ],

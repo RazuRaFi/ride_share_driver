@@ -1,16 +1,16 @@
-class CompleteDriverModel {
-  final List<CompletedRide> completed;
+class HistoryModel {
+  final List<RideData> ride;
   final Meta meta;
 
-  CompleteDriverModel({
-    required this.completed,
+  HistoryModel({
+    required this.ride,
     required this.meta,
   });
 
-  factory CompleteDriverModel.fromJson(Map<String, dynamic> json) {
-    return CompleteDriverModel(
-      completed: (json['completed'] as List<dynamic>?)
-          ?.map((e) => CompletedRide.fromJson(e))
+  factory HistoryModel.fromJson(Map<String, dynamic> json) {
+    return HistoryModel(
+      ride: (json['ride'] as List<dynamic>?)
+          ?.map((e) => RideData.fromJson(e))
           .toList() ??
           [],
       meta: Meta.fromJson(json['meta'] ?? {}),
@@ -18,7 +18,7 @@ class CompleteDriverModel {
   }
 }
 
-class CompletedRide {
+class RideData {
   final String id;
   final Passenger passenger;
   final Address pickupLocation;
@@ -27,7 +27,7 @@ class CompletedRide {
   final PassengerRating passengerRating;
   final double netFare;
 
-  CompletedRide({
+  RideData({
     required this.id,
     required this.passenger,
     required this.pickupLocation,
@@ -37,14 +37,15 @@ class CompletedRide {
     required this.netFare,
   });
 
-  factory CompletedRide.fromJson(Map<String, dynamic> json) {
-    return CompletedRide(
+  factory RideData.fromJson(Map<String, dynamic> json) {
+    return RideData(
       id: json['_id'] ?? '',
       passenger: Passenger.fromJson(json['passengerId'] ?? {}),
       pickupLocation: Address.fromJson(json['pickupLocation'] ?? {}),
       dropoffLocation: Address.fromJson(json['dropofLocation'] ?? {}),
       endTime: json['endTime'] ?? '',
-      passengerRating: PassengerRating.fromJson(json['passengerRating'] ?? {}),
+      passengerRating:
+      PassengerRating.fromJson(json['passengerRating'] ?? {}),
       netFare: (json['netFare'] ?? 0).toDouble(),
     );
   }
@@ -73,9 +74,7 @@ class Passenger {
 class Address {
   final String address;
 
-  Address({
-    required this.address,
-  });
+  Address({required this.address});
 
   factory Address.fromJson(Map<String, dynamic> json) {
     return Address(
