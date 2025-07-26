@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:intl/intl.dart';
+import 'package:ride_share_flat/controller/WalletController/wallet_controller.dart';
 import 'package:ride_share_flat/view/component/CommonText.dart';
 
 import 'TransactionDetails/transaction_details.dart';
@@ -55,6 +58,13 @@ class _WalletScreenState extends State<WalletScreen> {
   ];
 
   bool isBalanceVisible = true;
+  
+  final WalletController walletController=Get.put(WalletController());
+  @override
+  void initState() {
+    walletController.getWallet();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -94,24 +104,28 @@ class _WalletScreenState extends State<WalletScreen> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const Text(
-                            "YOUR TOTAL BALANCE",
-                            style: TextStyle(color: Colors.white, fontSize: 14),
-                          ),
-                          Text(
-                            isBalanceVisible
-                                ? NumberFormat.currency(symbol: '\$').format(55000)
-                                : "****",
-                            style: const TextStyle(
-                                color: Colors.white,
-                                fontSize: 20,
-                                fontWeight: FontWeight.w500),
-                          ),
-                        ],
-                      ),
+                      Obx((){
+                        return walletController.isWallet.value
+                            ? Center(child: CircularProgressIndicator(color: Colors.blueAccent,),)
+                            : Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Text(
+                              "YOUR TOTAL BALANCE",
+                              style: TextStyle(color: Colors.white, fontSize: 14),
+                            ),
+                            Text(
+                              isBalanceVisible
+                                  ? NumberFormat.currency(symbol: '\$').format(walletController.balanceModel.balance)
+                                  : "****",
+                              style: const TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w500),
+                            ),
+                          ],
+                        );
+                      }),
                       IconButton(
                         icon: Icon(
                           isBalanceVisible ? Icons.visibility : Icons.visibility_off,

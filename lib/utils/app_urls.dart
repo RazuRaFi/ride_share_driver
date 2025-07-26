@@ -34,5 +34,6 @@ class AppUrls {
   static const completeDetails = "$baseUrl/driver/get-complete-rides/688304d1cd8c0a6ddf20a68e";
   static const history = "$baseUrl/driver/history";
   static const historyDetails = "$baseUrl/driver/history/6883026e7af508d422208587";
+  static const balance = "$baseUrl/wallet/get-balance";
 
 }
