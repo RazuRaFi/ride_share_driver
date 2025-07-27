@@ -1,6 +1,7 @@
 // All imports stay the same
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_swipe/flutter_swipe.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -112,7 +113,7 @@ class _HomeMapScreenState extends State<HomeMapScreen> {
               bottom: 34,
               left: 50,
               right: 50,
-              child: Container(
+              child:Container(
                 height: 247,
                 width: 283,
                 decoration: BoxDecoration(
@@ -190,7 +191,7 @@ class _HomeMapScreenState extends State<HomeMapScreen> {
                     ),
                   ],
                 ),
-              ),
+              )
             ),
           ),
           if (_isBottomSheetVisible)

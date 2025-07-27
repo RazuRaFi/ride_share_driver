@@ -31,6 +31,7 @@ class EditProfileScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
+        backgroundColor: Colors.white,
         title: CommonText(text: "Edit Profile",fontSize: 16,fontWeight: FontWeight.w500,),
         centerTitle: true,
       ),
@@ -53,26 +54,21 @@ class EditProfileScreen extends StatelessWidget {
                           shape: BoxShape.circle,
                           border: Border.all(color: Colors.grey),
                         ),
-                        child: ClipOval(
-                          child:
-                          controller.image.isEmpty
+                        child:Obx(() => ClipOval(
+                          child: controller.image.value.isEmpty
                               ? CommonImage(
-                            imageSrc:
-                            AppUrls.imageUrl +
-                                controller
-                                    .updateProfileModel
-                                    .profileImage,
+                            imageSrc: AppUrls.imageUrl + controller.updateProfileModel.profileImage,
                             imageType: ImageType.network,
                             height: 100,
                             width: 100,
                           )
                               : Image.file(
-                            File(controller.image),
+                            File(controller.image.value),
                             width: 100,
                             height: 100,
                             fit: BoxFit.fill,
                           ),
-                        ),
+                        ))
                       ),
                       Positioned(
                         top: 30.h,

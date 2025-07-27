@@ -22,7 +22,6 @@ class ProfileController extends GetxController {
   List gender = const ["Male", "Female", "Other"];
 
   // String selectedLanguage = "English";
-  String image="";
 
   TextEditingController nameController = TextEditingController();
   TextEditingController numberController = TextEditingController();
@@ -41,9 +40,11 @@ class ProfileController extends GetxController {
   //   Get.back();
   // }
 
-  getProfileImage() async {
-    image = await OtherHelper.openGallery()??"";
-    update();
+  RxString image = ''.obs;
+
+  void getProfileImage() async {
+    final picked = await OtherHelper.openGallery();
+    image.value = picked ?? '';
   }
 
   // selectLanguage(int index) {
@@ -92,13 +93,14 @@ class ProfileController extends GetxController {
 
   updateProfile() async {
     isUpdateProfile(true);
-    try {
 
+    try {
       Map<String, String> headers = {
         "token": PrefsHelper.token,
       };
 
-      Map<String,dynamic> body = {
+      // Build the request body
+      Map<String, dynamic> body = {
         "data": jsonEncode({
           "fullName": nameController.text,
           "dob": {
@@ -108,33 +110,45 @@ class ProfileController extends GetxController {
           },
           "phone": numberController.text,
           "gender": selectedGender.value,
-          "address":addressController.text,
-        })
+          "address": addressController.text,
+        }),
       };
 
-
-      final response = await ApiService.multipartRequest(url: AppUrls.updateProfile, body: body,imagePath: image,header: headers,method: "PATCH");
+      // Send the multipart PATCH request with image
+      final response = await ApiService.multipartRequest(
+        url: AppUrls.updateProfile,
+        body: body,
+        imagePath: image.value, // ✅ use .value
+        header: headers,
+        method: "PATCH",
+      );
 
       if (response.statusCode == 200 || response.statusCode == 201) {
+        // Optional: Clear fields only if needed
         nameController.clear();
         numberController.clear();
         dayController.clear();
         monthController.clear();
         yearController.clear();
         addressController.clear();
-        log("Profile updated successfully");
-        log("edited data======${response.body["data"]}========================model--${UpdateProfileModel.fromJson(response.body["data"])}");
-        getMyProfile();
+        image.value = ''; // Clear selected image
 
-        log("My Profile Updated====${profileDetailsModel.user.profileImage}");
+        log("Profile updated successfully");
+
+        // Log the model
+        log("Edited data: ${response.body["data"]}");
+        final updatedProfile = UpdateProfileModel.fromJson(response.body["data"]);
+        log("Parsed model: ${updatedProfile.profileImage}");
+
+        // Refresh profile data
+        await getMyProfile();
+
         Get.back();
       } else {
-        log("Failed to update profile: ${response.statusCode} - ${response.body} ");
-        return null;
+        log("Failed to update profile: ${response.statusCode} - ${response.body}");
       }
     } catch (e, stackTrace) {
       log("Exception occurred while updating profile: $e\n$stackTrace");
-      return null;
     } finally {
       isUpdateProfile(false);
     }
