@@ -157,5 +157,31 @@ class OtherHelper {
       return '';
     }
   }
+  static String formatDateAgo(String dateTimeStr) {
+    try {
+      DateTime dateTime = DateTime.parse(dateTimeStr);
+      final now = DateTime.now();
+      final difference = now.difference(dateTime);
+
+      if (difference.inSeconds < 60) {
+        return '${difference.inSeconds} seconds ago';
+      } else if (difference.inMinutes < 60) {
+        return '${difference.inMinutes} minutes ago';
+      } else if (difference.inHours < 24) {
+        return '${difference.inHours} hours ago';
+      } else if (difference.inDays == 1) {
+        return 'Yesterday';
+      } else if (difference.inDays < 7) {
+        return '${difference.inDays} days ago';
+      } else if (difference.inDays < 30) {
+        return '${(difference.inDays / 7).floor()} weeks ago';
+      } else {
+        return DateFormat('d MMM yyyy, h:mm a').format(dateTime); // fallback
+      }
+    } catch (e) {
+      return '';
+    }
+  }
+
 
 }

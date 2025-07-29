@@ -44,6 +44,7 @@ dependencies:
   geocoding: ^4.0.0
   flutter_holo_date_picker: ^2.0.0
   flutter_swipe: ^1.0.1
+  firebase_core: ^4.0.0
 
 dev_dependencies:
   flutter_test:

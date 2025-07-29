@@ -35,95 +35,97 @@ class SignInScreen extends StatelessWidget {
           padding: EdgeInsets.symmetric(horizontal: 16),
           child: Form(
             key: formkey,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(height: 49,),
-                Center(child: CommonText(text: "Welcome!", fontSize: 20, fontWeight: FontWeight.w600)),
-                SizedBox(height: 16,),
-                Center(child: CommonText(text: "Please Login in to continue our app", fontSize: 14, fontWeight: FontWeight.w400)),
-                SizedBox(height: 56,),
-                CommonText(text: "Email Address", fontSize: 14, fontWeight:FontWeight.w500),
-                SizedBox(height: 7,),
-                // CommonTextField(title: 'Enter your email',),
-                CustomTextField(
-                  controller: controller.emailController,
-                  hindText: "Enter your email",fieldBorderRadius: 10,textStyle:TextStyle(fontSize: 14),
-                  validator: (value) {
-                    if (value == null || value.trim().isEmpty) {
-                      return "Email is required";
-                    }
-                    return null;
-                  },
-                ),
-                SizedBox(height: 16,),
-                CommonText(text: "Password", fontSize: 14, fontWeight:FontWeight.w500),
-                SizedBox(height: 7,),
-                CustomTextField(
-                  controller: controller.passwordController,
-                  hindText: "Enter your password",fieldBorderRadius: 10,textStyle:TextStyle(fontSize: 14),
-                  validator: (value) {
-                    if (value == null || value.trim().isEmpty) {
-                      return "Number is required";
-                    }
-                    return null;
-                  },
-                ),
-                SizedBox(height: 11,),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Row(
-                      children: [
-                        Obx(() => FlutterSwitch(
-                          width: 40.0,
-                          height: 20.0,
-                          toggleSize: 20.0,
-                          value: controller.isRemembered.value,
-                          borderRadius: 30.0,
-                          padding: 2.0,
-                          activeColor: Colors.black,
-                          inactiveColor: Colors.grey,
-                          toggleColor: Colors.white,
-                          onToggle: controller.toggleRemembered, // simplified
-                        )),
-
-                        const SizedBox(width: 5),
-                        CommonText(text: "Remember Me", fontSize: 14, fontWeight: FontWeight.w400)
-                      ],
-                    ),
-                    GestureDetector(
-                        onTap: (){
-                          Get.to(ForgottenPassword());
-
-                        },
-                        child: CommonText(text: "Forgot Password?", fontSize: 14, fontWeight: FontWeight.w500))
-                  ],
-                ),
-                SizedBox(height: 32,),
-                GestureDetector(
-                    onTap: (){
-                      if(formkey.currentState!.validate()){
-                        controller.signInUser();
-
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(height: 49,),
+                  Center(child: CommonText(text: "Welcome!", fontSize: 20, fontWeight: FontWeight.w600)),
+                  SizedBox(height: 16,),
+                  Center(child: CommonText(text: "Please Login in to continue our app", fontSize: 14, fontWeight: FontWeight.w400)),
+                  SizedBox(height: 56,),
+                  CommonText(text: "Email Address", fontSize: 14, fontWeight:FontWeight.w500),
+                  SizedBox(height: 7,),
+                  // CommonTextField(title: 'Enter your email',),
+                  CustomTextField(
+                    controller: controller.emailController,
+                    hindText: "Enter your email",fieldBorderRadius: 10,textStyle:TextStyle(fontSize: 14),
+                    validator: (value) {
+                      if (value == null || value.trim().isEmpty) {
+                        return "Email is required";
                       }
+                      return null;
                     },
-                    child: CommonButton(titleText: "Sign in",buttonHeight: 56,buttonWidth: 361,backgroundColor: Colors.black,titleColor: Colors.white,titleSize: 20,)),
-                SizedBox(height: 24,),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    CommonText(text: "Don’t have an account? ", fontSize: 14, fontWeight:FontWeight.w400),
-                    TextButton(onPressed: (){
-                      Get.to(()=>SignUpScreen());
-                    }, child:CommonText(text: "Sign up", fontSize: 14, fontWeight: FontWeight.w600,color: Colors.black,))
-                  ],
-                )
-
-
-
-
-              ],
+                  ),
+                  SizedBox(height: 16,),
+                  CommonText(text: "Password", fontSize: 14, fontWeight:FontWeight.w500),
+                  SizedBox(height: 7,),
+                  CustomTextField(
+                    controller: controller.passwordController,
+                    hindText: "Enter your password",fieldBorderRadius: 10,textStyle:TextStyle(fontSize: 14),
+                    validator: (value) {
+                      if (value == null || value.trim().isEmpty) {
+                        return "Number is required";
+                      }
+                      return null;
+                    },
+                  ),
+                  SizedBox(height: 11,),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Row(
+                        children: [
+                          Obx(() => FlutterSwitch(
+                            width: 40.0,
+                            height: 20.0,
+                            toggleSize: 20.0,
+                            value: controller.isRemembered.value,
+                            borderRadius: 30.0,
+                            padding: 2.0,
+                            activeColor: Colors.black,
+                            inactiveColor: Colors.grey,
+                            toggleColor: Colors.white,
+                            onToggle: controller.toggleRemembered, // simplified
+                          )),
+              
+                          const SizedBox(width: 5),
+                          CommonText(text: "Remember Me", fontSize: 14, fontWeight: FontWeight.w400)
+                        ],
+                      ),
+                      GestureDetector(
+                          onTap: (){
+                            Get.to(ForgottenPassword());
+              
+                          },
+                          child: CommonText(text: "Forgot Password?", fontSize: 14, fontWeight: FontWeight.w500))
+                    ],
+                  ),
+                  SizedBox(height: 32,),
+                  GestureDetector(
+                      onTap: (){
+                        if(formkey.currentState!.validate()){
+                          controller.signInUser();
+              
+                        }
+                      },
+                      child: CommonButton(titleText: "Sign in",buttonHeight: 56,buttonWidth: 361,backgroundColor: Colors.black,titleColor: Colors.white,titleSize: 20,)),
+                  SizedBox(height: 24,),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      CommonText(text: "Don’t have an account? ", fontSize: 14, fontWeight:FontWeight.w400),
+                      TextButton(onPressed: (){
+                        Get.to(()=>SignUpScreen());
+                      }, child:CommonText(text: "Sign up", fontSize: 14, fontWeight: FontWeight.w600,color: Colors.black,))
+                    ],
+                  )
+              
+              
+              
+              
+                ],
+              ),
             ),
           ),
         );
