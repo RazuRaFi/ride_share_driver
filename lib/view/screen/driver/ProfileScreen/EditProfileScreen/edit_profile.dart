@@ -5,6 +5,7 @@ import 'package:flutter_intl_phone_field/countries.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:ride_share_flat/controller/Profile/profile_controller.dart';
+import 'package:ride_share_flat/utils/app_string.dart';
 import 'package:ride_share_flat/view/component/CommonText.dart';
 import 'package:ride_share_flat/view/component/button/CommonButton.dart';
 import 'package:ride_share_flat/view/component/text_field/common_phone_number_textfield.dart';
@@ -32,7 +33,7 @@ class EditProfileScreen extends StatelessWidget {
       backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.white,
-        title: CommonText(text: "Edit Profile",fontSize: 16,fontWeight: FontWeight.w500,),
+        title: CommonText(text: AppString.editProfile,fontSize: 16,fontWeight: FontWeight.w500,),
         centerTitle: true,
       ),
       body: Padding(
@@ -81,13 +82,13 @@ class EditProfileScreen extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: 48,),
-                CommonText(text: "Name",fontSize: 14,fontWeight: FontWeight.w400,),
+                CommonText(text: AppString.fullName,fontSize: 14,fontWeight: FontWeight.w400,),
                 SizedBox(height: 8,),
                 CustomTextField(
                   controller:controller.nameController,
                   hindText: "Name", fieldBorderRadius: 10,textStyle: TextStyle(fontSize: 14),),
                 SizedBox(height: 18,),
-                CommonText(text: "Date of Birth",fontSize: 14,fontWeight: FontWeight.w400,),
+                CommonText(text: AppString.dateOfBirth,fontSize: 14,fontWeight: FontWeight.w400,),
                 SizedBox(height: 8,),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -111,7 +112,7 @@ class EditProfileScreen extends StatelessWidget {
                   ],
                 ),
                 SizedBox(height: 18,),
-                CommonText(text: "Gender",fontSize: 14,fontWeight: FontWeight.w400,),
+                CommonText(text: AppString.gender,fontSize: 14,fontWeight: FontWeight.w400,),
                 SizedBox(height: 8,),
                 Obx(() => Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -130,7 +131,7 @@ class EditProfileScreen extends StatelessWidget {
                             },
                           ),
                         ),
-                       CommonText(text: "Male",fontSize: 14,fontWeight: FontWeight.w500,)
+                       CommonText(text: AppString.male,fontSize: 14,fontWeight: FontWeight.w500,)
                       ],
                     ),
                     Transform.scale(
@@ -145,7 +146,7 @@ class EditProfileScreen extends StatelessWidget {
                               controller.selectedGender.value = value!;
                             },
                           ),
-                          CommonText(text: "Female",fontSize: 14,fontWeight: FontWeight.w500,)
+                          CommonText(text: AppString.female,fontSize: 14,fontWeight: FontWeight.w500,)
                         ],
                       ),
                     ),
@@ -162,21 +163,21 @@ class EditProfileScreen extends StatelessWidget {
                             },
                           ),
                         ),
-                        CommonText(text: "Others",fontSize: 14,fontWeight: FontWeight.w500,)
+                        CommonText(text: AppString.others,fontSize: 14,fontWeight: FontWeight.w500,)
                       ],
                     ),
                   ],
                 )),
                 SizedBox(height: 18,),
-                CommonText(text: "Phone Number",fontSize: 14,fontWeight: FontWeight.w400,),
+                CommonText(text:AppString.phoneNumber,fontSize: 14,fontWeight: FontWeight.w400,),
                 SizedBox(height: 8,),
                 CommonPhoneNumberTextFiled(controller:controller.numberController, countryChange: countryChange),
                 SizedBox(height: 18,),
-                CommonText(text: "Address",fontSize: 14,fontWeight: FontWeight.w400,),
+                CommonText(text: AppString.address,fontSize: 14,fontWeight: FontWeight.w400,),
                 SizedBox(height: 8,),
                 CustomTextField(
                   controller: controller.addressController,
-                  hindText: "Address", fieldBorderRadius: 10,textStyle: TextStyle(fontSize: 14),maxLines: 3,),
+                  hindText: AppString.address, fieldBorderRadius: 10,textStyle: TextStyle(fontSize: 14),maxLines: 3,),
                 SizedBox(height: 32,),
                 Obx((){
                   return controller.isUpdateProfile.value
@@ -186,7 +187,7 @@ class EditProfileScreen extends StatelessWidget {
                       controller.updateProfile();
 
                     },
-                    titleText: 'Save',backgroundColor: Colors.black,buttonHeight: 56,buttonWidth: 361,);
+                    titleText: AppString.saveAndChanges,backgroundColor: Colors.black,buttonHeight: 56,buttonWidth: 361,);
                 }),
                 SizedBox(height: 32,),
 

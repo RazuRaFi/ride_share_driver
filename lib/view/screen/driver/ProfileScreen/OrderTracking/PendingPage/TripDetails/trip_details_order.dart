@@ -7,6 +7,7 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:ride_share_flat/helpers/others_helper.dart';
+import 'package:ride_share_flat/utils/app_string.dart';
 import 'package:ride_share_flat/view/component/text_field/custom_textfield.dart';
 
 import '../../../../../../../controller/OrderTracking/order_tracking_controller.dart';
@@ -36,7 +37,7 @@ class _TripDetailsOrderState extends State<TripDetailsOrder> {
       backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.white,
-        title: CommonText(text: "Trip Details",fontSize: 16,fontWeight: FontWeight.w500,),
+        title: CommonText(text: AppString.tripDetails,fontSize: 16,fontWeight: FontWeight.w500,),
         centerTitle: true,
       ),
       body:Obx((){
@@ -56,7 +57,7 @@ class _TripDetailsOrderState extends State<TripDetailsOrder> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       spacing: 5,
                       children: [
-                        CommonText(text: "Trip ID",fontSize: 14,fontWeight: FontWeight.w500,),
+                        CommonText(text: AppString.tripId,fontSize: 14,fontWeight: FontWeight.w500,),
                         CommonText(text: rideController.driverDetailsModel.passenger.id,fontSize: 14,fontWeight: FontWeight.w500,),
                       ],
                     ),
@@ -73,7 +74,7 @@ class _TripDetailsOrderState extends State<TripDetailsOrder> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    CommonText(text: "Trip Info",fontSize: 14,fontWeight: FontWeight.w500,),
+                    CommonText(text: AppString.tripInfo,fontSize: 14,fontWeight: FontWeight.w500,),
                     Row(
                       spacing: 5,
                       children: [
@@ -206,7 +207,7 @@ class _TripDetailsOrderState extends State<TripDetailsOrder> {
                                       ),
                                       SizedBox(height: 16,),
                                       CommonButton(
-                                        titleText: "Cancel",
+                                        titleText: AppString.cancel,
                                         buttonHeight: 56,
                                         buttonWidth: 361,
                                         titleSize: 14,
@@ -233,33 +234,33 @@ class _TripDetailsOrderState extends State<TripDetailsOrder> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       spacing: 15,
                       children: [
-                        CommonText(text: "Receipt"),
+                        CommonText(text: AppString.receipt),
                         SizedBox(height:5,),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            CommonText(text: "Base fare"),
+                            CommonText(text:AppString.baseFare),
                             CommonText(text: "\$${rideController.driverDetailsModel.fare.toString()}"),
                           ],
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            CommonText(text: "Distance"),
+                            CommonText(text: AppString.distance),
                             CommonText(text: "${rideController.driverDetailsModel.distance}"),
                           ],
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            CommonText(text: "Time"),
+                            CommonText(text: AppString.time),
                             CommonText(text: rideController.driverDetailsModel.rideTotalTime),
                           ],
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            CommonText(text: "Safety Coverage Fee"),
+                            CommonText(text: AppString.safetyFee),
                             CommonText(text: rideController.driverDetailsModel.safetyFee.toString()),
                           ],
                         ),
@@ -267,14 +268,14 @@ class _TripDetailsOrderState extends State<TripDetailsOrder> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            CommonText(text: "Subtotal"),
+                            CommonText(text: AppString.subtotal),
                             CommonText(text: rideController.driverDetailsModel.subTotal.toString()),
                           ],
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            CommonText(text: "Discount"),
+                            CommonText(text: AppString.discount),
                             CommonText(text: rideController.driverDetailsModel.discount.toString()),
                           ],
                         ),
@@ -282,7 +283,7 @@ class _TripDetailsOrderState extends State<TripDetailsOrder> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            CommonText(text: "Net fare"),
+                            CommonText(text: AppString.netFare ),
                             CommonText(text: rideController.driverDetailsModel.netFare.toString()),
                           ],
                         ),

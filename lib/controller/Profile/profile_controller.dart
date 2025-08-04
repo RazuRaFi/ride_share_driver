@@ -60,7 +60,7 @@ class ProfileController extends GetxController {
 
   var selectedLanguage = 'English'.obs; // Observable variable for reactive updates
 
-  final List<String> languages = ['English', 'Spanish', 'French', 'German'];
+  final List<String> languages = ['English', 'Spanish', 'French', 'Creole'];
 
   void changeLanguage(String newLanguage) {
     selectedLanguage.value = newLanguage;

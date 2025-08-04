@@ -41,7 +41,6 @@ class _NotificationsState extends State<Notifications> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              CustomTextField(hindText: "Search",prefixIcon: Icon(Icons.search),),
               SizedBox(height: 8,),
               SizedBox(height: 16,),
               ListView.builder(
@@ -64,7 +63,7 @@ class _NotificationsState extends State<Notifications> {
                                spacing: 10,
                                children: [
                                  Icon(Icons.notifications_on_outlined),
-                                 Container(
+                                 SizedBox(
                                    width: 200,
                                    child:Column(
                                      spacing: 5,

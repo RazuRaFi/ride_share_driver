@@ -4,6 +4,7 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:ride_share_flat/controller/Profile/profile_controller.dart';
 import 'package:ride_share_flat/helpers/my_extension.dart';
 import 'package:ride_share_flat/services/api_services.dart';
+import 'package:ride_share_flat/utils/app_string.dart';
 import 'package:ride_share_flat/utils/app_urls.dart';
 import 'package:ride_share_flat/view/component/CommonText.dart';
 import 'package:ride_share_flat/view/component/button/CommonButton.dart';
@@ -45,7 +46,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         title: CommonText(
-          text: "Profile",
+          text:AppString.profile,
           fontSize: 16,
           fontWeight: FontWeight.w500,
         ),
@@ -105,7 +106,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     },
                     child: SizedBox(
                       height: 43,
-                      width: 90,
                       child: Column(
                         spacing: 5,
                         children: [
@@ -114,7 +114,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             height: 20,
                             width: 20,
                           ),
-                          CommonText(text: "Edit Profile"),
+                          CommonText(text:AppString.editProfile),
                         ],
                       ),
                     ),
@@ -129,20 +129,20 @@ class _ProfileScreenState extends State<ProfileScreen> {
               children: [
                 _buildTabItem(
                     image: "assets/icons/walleticon.png",
-                    label: "Wallet",
+                    label: AppString.wallet,
                     onTap:(){
                       Get.to(()=>WalletScreen());
                     }),
                 _buildTabItem(
                   image: "assets/icons/history.png",
-                  label: "History",
+                  label:AppString.history,
                   onTap: () {
                     Get.to(HistoryScreen());
                   },
                 ),
                 _buildTabItem(
                   image: "assets/icons/faq.png",
-                  label: "FAQ",
+                  label: AppString.faq,
                   onTap: () {
                   Get.to(()=>FAQScreen());
                   },
@@ -156,8 +156,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
               child: Column(
                 spacing: 10,
                 children: [
-                  roleContainer(title: "Schedule your ride.",
-                      details:"Schedule your next trip up to 60 days ago.",
+                  roleContainer(title:AppString.scheduleRide,
+                      details:AppString.scheduleNextTrip,
                       image: "assets/images/calender.png")
                 ],
               ),
@@ -171,28 +171,28 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     onTap:(){
                       Get.to(OrderTracking());
                         },
-                      child: ListItem(title: 'Order Tracking', icon: 'assets/icons/order.png',)),
+                      child: ListItem(title: AppString.orderTracking, icon: 'assets/icons/order.png',)),
                   GestureDetector(
                     onTap: (){
                       Get.to(SettingsPage());
                     },
 
-                      child: ListItem(title: 'Settings', icon: 'assets/icons/settings.png',)),
+                      child: ListItem(title: AppString.settings, icon: 'assets/icons/settings.png',)),
                   GestureDetector(
                     onTap: (){
                       Get.to(SafetyScreen());
                     },
-                      child: ListItem(title: 'Safety', icon: 'assets/icons/safety.png',)),
+                      child: ListItem(title: AppString.safety, icon: 'assets/icons/safety.png',)),
                   GestureDetector(
                     onTap: (){
                       Get.to(TermsServices());
                     },
-                      child: ListItem(title: 'Terms of Services', icon: 'assets/icons/terms.png',)),
+                      child: ListItem(title: AppString.termsOfServices, icon: 'assets/icons/terms.png',)),
                   GestureDetector(
                     onTap: (){
                       Get.to(FAQScreen());
                     },
-                      child: ListItem(title: 'FAQ', icon: 'assets/icons/faq2.png',)),
+                      child: ListItem(title: AppString.faq, icon: 'assets/icons/faq2.png',)),
                 ],
               ),
             ),
@@ -219,7 +219,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             CommonText(
-                              text: "Do you want to logout your profile?",
+                              text: AppString.logoutProfileConfirm,
                               fontSize: 16,
                               fontWeight: FontWeight.w500,
                             ),
@@ -228,7 +228,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
                                 CommonButton(
-                                  titleText: 'Yes',
+                                  titleText: AppString.yes,
                                   backgroundColor: Colors.black,
                                   buttonHeight: 45,
                                   buttonWidth: 120,
@@ -239,7 +239,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   },
                                 ),
                                 CommonButton(
-                                  titleText: 'No',
+                                  titleText: AppString.no,
                                   backgroundColor: Colors.white,
                                   buttonHeight: 45,
                                   buttonWidth: 120,
@@ -266,7 +266,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     spacing: 10,
                     children: [
                       Image.asset("assets/icons/logout.png",height: 24,width: 24,),
-                      CommonText(text:"Log Out",fontSize: 16,fontWeight: FontWeight.w500,color: Color(0xff990000),),
+                      CommonText(text:AppString.logOut,fontSize: 16,fontWeight: FontWeight.w500,color: Color(0xff990000),),
                     ],
                   ),
                 ),

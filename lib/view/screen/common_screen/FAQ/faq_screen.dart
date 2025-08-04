@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:ride_share_flat/utils/app_string.dart';
 import '../../../../controller/SettingController/faq_controller.dart';
 import '../../../../model/Faq/faq_model.dart';
 import '../../../../utils/app_colors.dart';
@@ -36,8 +37,8 @@ class _FAQScreenState extends State<FAQScreen> {
           icon: const Icon(Icons.arrow_back, color: AppColors.black),
           onPressed: () => Get.back(),
         ),
-        title: const CommonText(
-          text: "FAQ",
+        title:  CommonText(
+          text: AppString.faq,
           fontSize: 18,
           fontWeight: FontWeight.w500,
           color: AppColors.black,

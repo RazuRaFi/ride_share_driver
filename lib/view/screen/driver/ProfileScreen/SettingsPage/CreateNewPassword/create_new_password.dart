@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ride_share_flat/controller/SettingController/change_password.dart';
 import 'package:ride_share_flat/helpers/others_helper.dart';
+import 'package:ride_share_flat/utils/app_string.dart';
 import 'package:ride_share_flat/view/screen/common_screen/ForgottenPassword/forgottern_password.dart';
 
 import '../../../../../component/CommonText.dart';
@@ -27,7 +28,7 @@ class _CreatePasswordState extends State<CreatePassword> {
         elevation: 0,
         centerTitle: true,
         title: CommonText(
-          text: "Create New Password",
+          text: AppString.createNewPassword,
           fontSize: 16,
           fontWeight: FontWeight.w500,
         ),
@@ -46,14 +47,14 @@ class _CreatePasswordState extends State<CreatePassword> {
                     SizedBox(height: 24),
 
                     CommonText(
-                      text: "Current Password",
+                      text: AppString.currentPassword,
                       fontSize: 14,
                       fontWeight: FontWeight.w500,
                     ),
                     SizedBox(height: 8),
                     CustomTextField(
                       controller: controller.currentPasswordController,
-                      hindText: "Enter current password",
+                      hindText: AppString.currentPassword,
                       fieldBorderRadius: 10,
                       textStyle:  TextStyle(fontSize: 14),
                       isPassword: true,
@@ -63,14 +64,14 @@ class _CreatePasswordState extends State<CreatePassword> {
 
                     /// New Password
                     CommonText(
-                      text: "New Password",
+                      text: AppString.newPassword,
                       fontSize: 14,
                       fontWeight: FontWeight.w500,
                     ),
                     SizedBox(height: 8),
                     CustomTextField(
                       controller: controller.newPasswordController,
-                      hindText: "Enter new password",
+                      hindText: AppString.newPassword,
                       fieldBorderRadius: 10,
                       textStyle: TextStyle(fontSize: 14),
                       isPassword: true,
@@ -80,14 +81,14 @@ class _CreatePasswordState extends State<CreatePassword> {
 
                     /// Confirm Password
                     CommonText(
-                      text: "Confirm Password",
+                      text: AppString.confirmPassword,
                       fontSize: 14,
                       fontWeight: FontWeight.w500,
                     ),
                     SizedBox(height: 8),
                     CustomTextField(
                       controller: controller.confirmPasswordController,
-                      hindText: "Enter confirm password",
+                      hindText: AppString.confirmPassword,
                       fieldBorderRadius: 10,
                       textStyle:  TextStyle(fontSize: 14),
                       isPassword: true,
@@ -103,7 +104,7 @@ class _CreatePasswordState extends State<CreatePassword> {
                           Get.to(() =>  ForgottenPassword());
                         },
                         child: CommonText(
-                          text: "Forgot Password?",
+                          text:AppString.forgotPassword,
                           fontSize: 13,
                           fontWeight: FontWeight.w400,
                           color: Colors.black,
@@ -121,7 +122,7 @@ class _CreatePasswordState extends State<CreatePassword> {
                         }
 
                       },
-                      titleText: "Save",
+                      titleText: AppString.saveAndChanges,
                       buttonHeight: 56,
                       buttonWidth: double.infinity,
                       backgroundColor: Colors.black,

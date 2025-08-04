@@ -1,9 +1,12 @@
 
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:ride_share_flat/controller/Profile/profile_controller.dart';
 import 'package:ride_share_flat/controller/SettingController/change_password.dart';
+import 'package:ride_share_flat/utils/app_string.dart';
 import 'package:ride_share_flat/view/component/CommonText.dart';
 import 'package:ride_share_flat/view/component/CommonTextField.dart';
 
@@ -20,7 +23,7 @@ class SettingsPage extends StatelessWidget {
       backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.white,
-        title: CommonText(text: "Settings",fontSize: 16,fontWeight: FontWeight.w500,),
+        title: CommonText(text: AppString.settings,fontSize: 16,fontWeight: FontWeight.w500,),
         centerTitle: true,
       ),
 
@@ -39,7 +42,7 @@ class SettingsPage extends StatelessWidget {
                     children: [
                       Icon(Icons.language),
                       SizedBox(width: 8),
-                      CommonText(text: "Language",fontSize: 14,fontWeight: FontWeight.w500,)
+                      CommonText(text: AppString.language,fontSize: 14,fontWeight: FontWeight.w500,)
                     ],
                   ),
                   Obx(() => DropdownButton<String>(
@@ -48,6 +51,16 @@ class SettingsPage extends StatelessWidget {
                     onChanged: (String? newValue) {
                       if (newValue != null) {
                         controller.changeLanguage(newValue);
+                        if (newValue == "English") {
+                          Get.updateLocale(Locale('en', 'US'));
+                        } else if (newValue == "Spanish") {
+                          Get.updateLocale(Locale('es', 'ES'));
+                        } else if (newValue == "French") {
+                          Get.updateLocale(Locale('fr', 'FR'));
+                        } else if (newValue == "Creole") {
+                          Get.updateLocale(Locale('ht', 'HT'));
+                        }
+                        log("language=========$newValue}");
                       }
                     },
                     items: controller.languages.map<DropdownMenuItem<String>>((String value) {
@@ -64,7 +77,7 @@ class SettingsPage extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    CommonText(text: "Change Password"),
+                    CommonText(text: AppString.changePassword.tr),
                     IconButton(onPressed: (){
                       Get.to(()=>CreatePassword());
                     }, icon: Icon(Icons.arrow_forward_ios_outlined,size: 16,)),
@@ -93,7 +106,7 @@ class SettingsPage extends StatelessWidget {
                               mainAxisSize: MainAxisSize.min,
                               children: [
                                 CommonText(
-                                  text: "Do you want to delete?",
+                                  text: AppString.wantDelete,
                                   fontSize: 16,
                                   fontWeight: FontWeight.w500,
                                 ),
@@ -102,13 +115,13 @@ class SettingsPage extends StatelessWidget {
                                     flex: 5,
                                     child: CommonTextField(
                                       controller: deleteController.passwordController,
-                                        title: "Input your password")),
+                                        title: AppString.enterYouPassword)),
                                 const SizedBox(height: 20),
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
                                     CommonButton(
-                                      titleText: 'Yes',
+                                      titleText: AppString.yes,
                                       backgroundColor: Colors.black,
                                       buttonHeight: 45,
                                       buttonWidth: 120,
@@ -118,7 +131,7 @@ class SettingsPage extends StatelessWidget {
                                       },
                                     ),
                                     CommonButton(
-                                      titleText: 'No',
+                                      titleText: AppString.no,
                                       backgroundColor: Colors.white,
                                       buttonHeight: 45,
                                       buttonWidth: 120,
@@ -139,7 +152,7 @@ class SettingsPage extends StatelessWidget {
                       },
                     );
 
-                  }, child:CommonText(text: "Delete Account",fontSize: 16,fontWeight: FontWeight.w500,color: Colors.red,))
+                  }, child:CommonText(text: AppString.deleteAccount,fontSize: 16,fontWeight: FontWeight.w500,color: Colors.red,))
             ],
           ),
         );

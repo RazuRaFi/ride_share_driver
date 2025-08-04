@@ -5,6 +5,7 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:ride_share_flat/controller/OrderTracking/order_tracking_controller.dart';
 import 'package:ride_share_flat/helpers/others_helper.dart';
 import 'package:ride_share_flat/helpers/pref_helper.dart';
+import 'package:ride_share_flat/utils/app_string.dart';
 import 'package:ride_share_flat/view/component/button/CommonButton.dart';
 import '../../../../../../utils/app_urls.dart';
 import '../../../../../component/CommonText.dart';
@@ -120,7 +121,7 @@ class _PendingPageState extends State<PendingPage> {
                                   ],
                                 ),
                                 SizedBox(height: 5,),
-                                CommonButton(titleText: "View Details",buttonHeight: 40,buttonWidth: 332,backgroundColor: Colors.white,titleColor: Colors.black,borderColor: Colors.red,titleSize: 14,),
+                                CommonButton(titleText: AppString.viewDetails,buttonHeight: 40,buttonWidth: 332,backgroundColor: Colors.white,titleColor: Colors.black,borderColor: Colors.red,titleSize: 14,),
                               ],
                             ),
                           ),

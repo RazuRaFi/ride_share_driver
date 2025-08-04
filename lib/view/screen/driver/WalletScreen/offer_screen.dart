@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:intl/intl.dart';
 import 'package:ride_share_flat/controller/WalletController/wallet_controller.dart';
+import 'package:ride_share_flat/utils/app_string.dart';
 import 'package:ride_share_flat/view/component/CommonText.dart';
 
 import 'TransactionDetails/transaction_details.dart';
@@ -74,7 +75,7 @@ class _WalletScreenState extends State<WalletScreen> {
       backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.white,
-        title: CommonText(text: "Wallet",fontSize: 16,fontWeight: FontWeight.w500,),
+        title: CommonText(text: AppString.wallet,fontSize: 16,fontWeight: FontWeight.w500,),
         centerTitle: true,
       ),
       body: SingleChildScrollView(
