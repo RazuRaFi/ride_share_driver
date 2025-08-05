@@ -51,7 +51,7 @@ class RideController extends GetxController {
     return null;
   }
 
-  Future<DriverDetailsModel?> getRiderDetails() async {
+  Future<DriverDetailsModel?> getRiderDetails({required String id}) async {
     isRiderDetails(true);
 
     try {
@@ -59,7 +59,7 @@ class RideController extends GetxController {
         "token": PrefsHelper.token,
       };
 
-      var response = await ApiService.getApi(AppUrls.riderDetails, header: header);
+      var response = await ApiService.getApi(AppUrls.riderDetails(id), header: header);
 
       if (response.statusCode == 200) {
         final data = response.body['data'];
@@ -103,7 +103,7 @@ class RideController extends GetxController {
   }
 
 
-  Future<CompleteRideModel?> getCompleteDetails() async {
+  Future<CompleteRideModel?> getCompleteDetails({required String id}) async {
     isCompleteDetails(true);
 
     try {
@@ -111,7 +111,7 @@ class RideController extends GetxController {
         "token": PrefsHelper.token,
       };
 
-      var response = await ApiService.getApi(AppUrls.completeDetails, header: header);
+      var response = await ApiService.getApi(AppUrls.completeDetails(id), header: header);
 
       if (response.statusCode == 200) {
         final data = response.body['data'];

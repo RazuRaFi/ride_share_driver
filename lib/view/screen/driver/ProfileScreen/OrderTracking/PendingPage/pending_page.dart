@@ -50,7 +50,7 @@ class _PendingPageState extends State<PendingPage> {
                       final rider=rideController.rideList[index];
                       return GestureDetector(
                         onTap: (){
-                          Get.to(TripDetailsOrder());
+                          Get.to(TripDetailsOrder(),arguments: rider.id);
                         },
                         child: Container(
                           margin: EdgeInsets.symmetric(vertical: 10),

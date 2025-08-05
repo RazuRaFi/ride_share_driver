@@ -60,6 +60,14 @@ class CompleteRideModel {
   });
 
   factory CompleteRideModel.fromJson(Map<String, dynamic> json) {
+    double parseDouble(dynamic value) {
+      if (value == null) return 0.0;
+      if (value is double) return value;
+      if (value is int) return value.toDouble();
+      if (value is String) return double.tryParse(value) ?? 0.0;
+      return 0.0;
+    }
+
     return CompleteRideModel(
       id: json['_id'] ?? '',
       passenger: Passenger.fromJson(json['passengerId'] ?? {}),
@@ -72,20 +80,20 @@ class CompleteRideModel {
       startTime: json['startTime'] ?? '',
       endTime: json['endTime'] ?? '',
       rideTotalTime: json['rideTotalTime'] ?? '',
-      payment: (json['payment'] ?? 0).toDouble(),
-      fare: (json['fare'] ?? 0).toDouble(),
-      distance: (json['distance'] ?? 0).toDouble(),
-      driverRating: (json['driverRating'] ?? 0).toDouble(),
-      passengerRating: (json['passengerRating'] ?? 0).toDouble(),
+      payment: parseDouble(json['payment']),
+      fare: parseDouble(json['fare']),
+      distance: parseDouble(json['distance']),
+      driverRating: parseDouble(json['driverRating']),
+      passengerRating: parseDouble(json['passengerRating']),
       pickupDate: json['pickupDate'] ?? '',
       pickupTime: json['pickupTime'] ?? '',
       fullAddress: json['fullAddress'] ?? '',
       roundTrip: json['roundTrip'] ?? false,
       timeInMilliseconds: json['timeInMilliseconds'] ?? 0,
-      safetyFee: (json['safetyFee'] ?? 0).toDouble(),
-      discount: (json['discount'] ?? 0).toDouble(),
-      netFare: (json['netFare'] ?? 0).toDouble(),
-      subTotal: (json['subTotal'] ?? 0).toDouble(),
+      safetyFee: parseDouble(json['safetyFee']),
+      discount: parseDouble(json['discount']),
+      netFare: parseDouble(json['netFare']),
+      subTotal: parseDouble(json['subTotal']),
       isScheduled: json['isScheduled'] ?? false,
       createdAt: json['createdAt'] ?? '',
       updatedAt: json['updatedAt'] ?? '',
@@ -162,9 +170,12 @@ class Location {
   factory Location.fromJson(Map<String, dynamic> json) {
     return Location(
       type: json['type'] ?? '',
-      coordinates: (json['coordinates'] as List<dynamic>?)
-          ?.map((e) => (e as num).toDouble())
-          .toList() ??
+      coordinates: (json['coordinates'] as List?)?.map((e) {
+        if (e is int) return e.toDouble();
+        if (e is double) return e;
+        if (e is String) return double.tryParse(e) ?? 0.0;
+        return 0.0;
+      }).toList() ??
           [0.0, 0.0],
     );
   }

@@ -19,6 +19,9 @@ class AppString {
   static String get cancel => "cancel".tr;
   static String get done => "done".tr;
   static String get completeProfile => "completeProfile".tr;
+  static String get yourTotalBalance => "yourTotalBalance".tr;
+  static String get recentTransaction => "recentTransaction".tr;
+  static String get date => "date".tr;
   static String get fillInformation => "fillInformation".tr;
   static String get brandName => "brandName".tr;
   static String get vehicleType => "vehicleType".tr;

@@ -18,7 +18,6 @@ class ProfileDetailsModel {
 class User {
   final String id;
   final String fullName;
-  final String firstName;
   final String email;
   final String phone;
   final String profileImage;
@@ -30,39 +29,43 @@ class User {
   final bool userVerification;
   final bool isProfileComplete;
   final bool verifyIdentity;
+  final String createdByRole;
   final bool isBlocked;
   final bool isDeleted;
   final bool termsAndConditions;
   final String createdAt;
   final String updatedAt;
+  final Dob dob;
+  final bool isVerified;
 
   User({
-    this.id = '',
-    this.fullName = '',
-    this.firstName = '',
-    this.email = '',
-    this.phone = '',
-    this.profileImage = '',
+    required this.id,
+    required this.fullName,
+    required this.email,
+    required this.phone,
+    required this.profileImage,
     required this.profile,
-    this.role = '',
-    this.address = '',
-    this.gender = '',
-    this.licenseNumber = '',
-    this.userVerification = false,
-    this.isProfileComplete = false,
-    this.verifyIdentity = false,
-    this.isBlocked = false,
-    this.isDeleted = false,
-    this.termsAndConditions = false,
-    this.createdAt = '',
-    this.updatedAt = '',
+    required this.role,
+    required this.address,
+    required this.gender,
+    required this.licenseNumber,
+    required this.userVerification,
+    required this.isProfileComplete,
+    required this.verifyIdentity,
+    required this.createdByRole,
+    required this.isBlocked,
+    required this.isDeleted,
+    required this.termsAndConditions,
+    required this.createdAt,
+    required this.updatedAt,
+    required this.dob,
+    required this.isVerified,
   });
 
   factory User.fromJson(Map<String, dynamic> json) {
     return User(
       id: json['_id'] ?? '',
       fullName: json['fullName'] ?? '',
-      firstName: json['firstName'] ?? '',
       email: json['email'] ?? '',
       phone: json['phone'] ?? '',
       profileImage: json['profileImage'] ?? '',
@@ -74,18 +77,21 @@ class User {
       userVerification: json['userVerification'] ?? false,
       isProfileComplete: json['isProfileComplete'] ?? false,
       verifyIdentity: json['verifyIdentity'] ?? false,
+      createdByRole: json['createdByRole'] ?? '',
       isBlocked: json['isBlocked'] ?? false,
       isDeleted: json['isDeleted'] ?? false,
       termsAndConditions: json['termsAndConditions'] ?? false,
       createdAt: json['createdAt'] ?? '',
       updatedAt: json['updatedAt'] ?? '',
+      dob: Dob.fromJson(json['dob'] ?? {}),
+      isVerified: json['isVerified'] ?? false,
     );
   }
 }
 
 class Profile {
   final String id;
-  final String user;
+  final String userId;
   final Address homeAddress;
   final Address workAddress;
   final Address currentAddress;
@@ -93,19 +99,19 @@ class Profile {
   final String updatedAt;
 
   Profile({
-    this.id = '',
-    this.user = '',
+    required this.id,
+    required this.userId,
     required this.homeAddress,
     required this.workAddress,
     required this.currentAddress,
-    this.createdAt = '',
-    this.updatedAt = '',
+    required this.createdAt,
+    required this.updatedAt,
   });
 
   factory Profile.fromJson(Map<String, dynamic> json) {
     return Profile(
       id: json['_id'] ?? '',
-      user: json['user'] ?? '',
+      userId: json['user'] ?? '',
       homeAddress: Address.fromJson(json['homeAddress'] ?? {}),
       workAddress: Address.fromJson(json['workAddress'] ?? {}),
       currentAddress: Address.fromJson(json['currentAddress'] ?? {}),
@@ -121,7 +127,7 @@ class Address {
 
   Address({
     required this.location,
-    this.address = '',
+    required this.address,
   });
 
   factory Address.fromJson(Map<String, dynamic> json) {
@@ -137,51 +143,51 @@ class Location {
   final List<double> coordinates;
 
   Location({
-    this.type = 'Point',
-    this.coordinates = const [0.0, 0.0],
+    required this.type,
+    required this.coordinates,
   });
 
   factory Location.fromJson(Map<String, dynamic> json) {
-    final rawCoords = json['coordinates'];
-    List<double> coords = [0.0, 0.0];
-
-    if (rawCoords is List) {
-      coords = rawCoords.map((e) {
-        if (e is int) return e.toDouble();
-        if (e is double) return e;
-        if (e is String) return double.tryParse(e) ?? 0.0;
-        return 0.0;
-      }).toList();
-    }
-
     return Location(
       type: json['type'] ?? 'Point',
-      coordinates: coords.length == 2 ? coords : [0.0, 0.0],
+      coordinates: (json['coordinates'] as List?)?.map((e) => (e as num).toDouble()).toList() ?? [0.0, 0.0],
+    );
+  }
+}
+
+class Dob {
+  final String day;
+  final String month;
+  final String year;
+
+  Dob({
+    required this.day,
+    required this.month,
+    required this.year,
+  });
+
+  factory Dob.fromJson(Map<String, dynamic> json) {
+    return Dob(
+      day: json['day'] ?? '',
+      month: json['month'] ?? '',
+      year: json['year'] ?? '',
     );
   }
 }
 
 class Rating {
   final int totalRatings;
-  final double averageRating;
+  final int averageRating;
 
   Rating({
-    this.totalRatings = 0,
-    this.averageRating = 0.0,
+    required this.totalRatings,
+    required this.averageRating,
   });
 
   factory Rating.fromJson(Map<String, dynamic> json) {
     return Rating(
-      totalRatings: json['totalRatings'] is int ? json['totalRatings'] : 0,
-      averageRating: _toDouble(json['averageRating']),
+      totalRatings: json['totalRatings'] ?? 0,
+      averageRating: json['averageRating'] ?? 0,
     );
-  }
-
-  static double _toDouble(dynamic value) {
-    if (value == null) return 0.0;
-    if (value is double) return value;
-    if (value is int) return value.toDouble();
-    if (value is String) return double.tryParse(value) ?? 0.0;
-    return 0.0;
   }
 }

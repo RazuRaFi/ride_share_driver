@@ -44,7 +44,7 @@ class HistoryController extends GetxController{
     return null;
   }
 
-  Future<HistoryDetailsModel?> getHistoryDetails() async {
+  Future<HistoryDetailsModel?> getHistoryDetails({required String id}) async {
     isHistoryDetails(true);
 
     try {
@@ -52,7 +52,7 @@ class HistoryController extends GetxController{
         "token": PrefsHelper.token,
       };
 
-      var response = await ApiService.getApi(AppUrls.historyDetails, header: header);
+      var response = await ApiService.getApi(AppUrls.historyDetails(id), header: header);
 
       if (response.statusCode == 200) {
         final data = response.body['data'];

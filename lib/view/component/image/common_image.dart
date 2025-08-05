@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -9,7 +11,7 @@ import '../../../utils/app_colors.dart';
 import '../../../utils/app_image.dart';
 
 
-enum ImageType { png, svg, network }
+enum ImageType { png, svg, network,file }
 
 class CommonImage extends StatelessWidget {
   final String imageSrc;
@@ -67,6 +69,29 @@ class CommonImage extends StatelessWidget {
           },
         ),
       );
+    }
+
+    if (imageType == ImageType.file) {
+      final file = File(imageSrc.toString());
+
+      imageWidget = file.existsSync()
+          ? ClipRRect(
+        borderRadius: BorderRadius.circular(borderRadius),
+        child: Image.file(
+          file,
+          color: imageColor,
+          height: size?.sp ?? height.h,
+          width: size?.sp ?? width.w,
+          fit: fill,
+          errorBuilder: (context, error, stackTrace) {
+            if (kDebugMode) {
+              print("Image Load Error: $error");
+            }
+            return Image.asset(defaultImage);
+          },
+        ),
+      )
+          : Image.asset(defaultImage);
     }
 
     if (imageType == ImageType.network) {

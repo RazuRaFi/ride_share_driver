@@ -30,10 +30,10 @@ class AppUrls {
   static const completeProfile = "$baseUrl/users/complete";
   static const pendingRider = "$baseUrl/driver/get-pending-rides";
   static const completeRider = "$baseUrl/driver/get-complete-rides";
-  static const riderDetails = "$baseUrl/driver/get-pending-rides/688304d1cd8c0a6ddf20a68e";
-  static const completeDetails = "$baseUrl/driver/get-complete-rides/688304d1cd8c0a6ddf20a68e";
+  static String riderDetails(String id) => "$baseUrl/driver/get-pending-rides/$id";
+  static String completeDetails(String id) => "$baseUrl/driver/get-complete-rides/$id";
   static const history = "$baseUrl/driver/history";
-  static const historyDetails = "$baseUrl/driver/history/6883026e7af508d422208587";
+  static String historyDetails(String id) => "$baseUrl/driver/history/$id";
   static const balance = "$baseUrl/wallet/get-balance";
 
 }

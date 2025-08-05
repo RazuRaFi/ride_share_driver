@@ -26,9 +26,11 @@ class TripDetailsOrder extends StatefulWidget {
 
 class _TripDetailsOrderState extends State<TripDetailsOrder> {
   final RideController rideController=Get.put(RideController());
+
+  final id=Get.arguments;
   @override
   void initState() {
-    rideController.getRiderDetails();
+    rideController.getRiderDetails(id: id);
     super.initState();
   }
   @override

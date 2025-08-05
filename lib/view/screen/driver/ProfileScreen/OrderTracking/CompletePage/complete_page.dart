@@ -49,7 +49,7 @@ class _CompletePageState extends State<CompletePage> {
                       final complete=controller.completeList[index];
                       return GestureDetector(
                         onTap: (){
-                          Get.to(TripDetailsScreen());
+                          Get.to(TripDetailsScreen(),arguments: complete.id);
                         },
                         child: Container(
                           margin: EdgeInsets.symmetric(vertical: 10),
