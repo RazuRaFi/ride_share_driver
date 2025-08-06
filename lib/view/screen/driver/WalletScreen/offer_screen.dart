@@ -111,8 +111,8 @@ class _WalletScreenState extends State<WalletScreen> {
                             : Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const Text(
-                              "YOUR TOTAL BALANCE",
+                         Text(
+                              AppString.yourTotalBalance,
                               style: TextStyle(color: Colors.white, fontSize: 14),
                             ),
                             Text(
@@ -144,8 +144,8 @@ class _WalletScreenState extends State<WalletScreen> {
               ],
             ),
             const SizedBox(height: 16),
-            const Text(
-              "Recent Transactions",
+          Text(
+              AppString.recentTransaction,
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
             ),
             const SizedBox(height: 10),

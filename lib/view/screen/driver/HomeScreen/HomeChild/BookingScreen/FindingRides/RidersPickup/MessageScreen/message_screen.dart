@@ -1,142 +1,190 @@
+import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
+import 'package:intl/intl.dart';
+import 'package:ride_share_flat/helpers/pref_helper.dart';
 import 'package:ride_share_flat/view/component/CommonText.dart';
-import 'package:ride_share_flat/view/component/text_field/custom_textfield.dart';
+import '../../../../../../../../../controller/WebsocketController/web_socket_controller.dart';
+import '../../../../../../../../../utils/app_urls.dart';
+import '../../../../../../../../component/image/common_image.dart';
 
-class MessageScreen extends StatelessWidget {
+class MessageScreen extends StatefulWidget {
   const MessageScreen({super.key});
+
+  @override
+  State<MessageScreen> createState() => _MessageScreenState();
+}
+
+class _MessageScreenState extends State<MessageScreen> {
+  final WebSocketController controller = Get.put(WebSocketController());
+  final TextEditingController textController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    Future.microtask(() {
+      controller.getMessages();
+      controller.getMessageBySocket(rideId: controller.completeRideModel.id);
+
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 8),
-        child: Stack(
-          children: [
-            Column(
-              children: [
-                SizedBox(height: 20,),
-                Container(
-                  color: Colors.grey.shade200,
-                  height: 100,
-                  width: MediaQuery.sizeOf(context).width,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    spacing: 10,
-                    children: [
-                      IconButton(onPressed: (){
-                        Get.back();
-                      }, icon:Icon(Icons.arrow_back_outlined,size: 25,color: Colors.black,)),
-                      CircleAvatar(
-                        radius: 25,
-                        child:ClipRRect(
-                          clipBehavior: Clip.none,
-                          child: Image.asset("assets/images/profileimage.png"),
-                        ),
-                      ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          CommonText(text: "Mark Willions",fontSize: 16,fontWeight: FontWeight.w500,),
-                          CommonText(text: "Service Provider",fontSize: 12,fontWeight: FontWeight.w400,),
-                        ],
-                      )
-
-                    ],
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        elevation: 0,
+        leading: BackButton(color: Colors.black),
+        title: Obx(() {
+          return controller.isMessageLoading.value
+              ? Center(
+            child: CircularProgressIndicator(color: Colors.blueAccent),
+          )
+              : Row(
+            children: [
+              Container(
+                height: 40,
+                width: 40,
+                decoration: BoxDecoration(shape: BoxShape.circle),
+                child: ClipOval(
+                  child: CommonImage(
+                    imageSrc:
+                    "${AppUrls.imageUrl}${controller.completeRideModel.passenger.profileImage}",
+                    imageType: ImageType.network,
+                    fill: BoxFit.fill,
                   ),
                 ),
-                Column(
-                  spacing: 15,
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
-                    Container(
-                      padding: EdgeInsets.symmetric(horizontal: 10,vertical: 10),
-                      height: 84,
-                      width: 327,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.only(topLeft: Radius.circular(15),bottomLeft: Radius.circular(15),bottomRight: Radius.circular(15)),
-                          color: Colors.black
-                      ),
-                      child: CommonText(
-                        textAlign: TextAlign.start,
-                        text: "Cras eget placerat diam. Aliquam mauris libero, semper vel nisi non, suscipit.",fontSize: 14,fontWeight: FontWeight.w500,color: Colors.white,),
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Container(
-                          padding: EdgeInsets.symmetric(horizontal: 10,vertical: 10),
-                          height: 84,
-                          width: 327,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              color: Colors.grey
-                          ),
-                          child: CommonText(
-                            textAlign: TextAlign.start,
-                            text: "Cras eget placerat diam. Aliquam mauris libero, semper vel nisi non, suscipit.",fontSize: 14,fontWeight: FontWeight.w500,color: Colors.white,),
-                        ),
-                      ],
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        Container(
-                          padding: EdgeInsets.symmetric(horizontal: 10,vertical: 10),
-                          height: 64,
-                          width: 327,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              color: Colors.black
-                          ),
-                          child: CommonText(
-                            textAlign: TextAlign.start,
-                            text: "Cras eget placerat diam. Aliquam mauris libero, semper vel nisi non, suscipit.",fontSize: 14,fontWeight: FontWeight.w500,color: Colors.white,),
-                        ),
-                      ],
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Container(
-                          padding: EdgeInsets.symmetric(horizontal: 10,vertical: 10),
-                          height: 84,
-                          width: 327,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              color: Colors.grey
-                          ),
-                          child: CommonText(
-                            textAlign: TextAlign.start,
-                            text: "Cras eget placerat diam. Aliquam mauris libero, semper vel nisi non, suscipit.",fontSize: 14,fontWeight: FontWeight.w500,color: Colors.white,),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
+              ),
+              SizedBox(width: 15),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  CommonText(
+                    text: controller.completeRideModel.passenger.fullName,
+                    fontSize: 16,
+                    fontWeight: FontWeight.w500,
+                  ),
+                  CommonText(
+                    text: "Service Provider",
+                    fontSize: 12,
+                    fontWeight: FontWeight.w400,
+                    color: Colors.grey,
+                  ),
+                ],
+              ),
+            ],
+          );
+        }),
+      ),
+      body: Column(
+        children: [
+          Expanded(
+            child: Obx(() {
+              if (controller.isMessageLoading.value) {
+                return const Center(child: CircularProgressIndicator());
+              }
 
-              ],
-            ),
-            Positioned(
-              bottom: 10,
-                left: 0,
-                right: 0,
-                child:Expanded(
-                  child: CustomTextField(hindText: "Type something...",fieldBorderColor: Colors.grey.shade200,
-                    suffixIcon: CircleAvatar(
-                      radius: 12,
-                      backgroundColor: Colors.black,
-                      child: IconButton(onPressed: (){}, icon:Icon(Icons.send,color: Colors.white,size: 22,)),
-                    ),),
-                ))
-          ],
-        ),
-      )
+              return ListView.builder(
+                controller: controller.scrollController,
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 16,
+                  vertical: 10,
+                ),
+                itemCount: controller.messages.length,
+                itemBuilder: (context, index) {
+                  final message = controller.messages[index];
+                  final bool isMine = message.sender == PrefsHelper.userId;
+                  return Align(
+                    alignment: isMine
+                        ? Alignment.centerRight
+                        : Alignment.centerLeft,
+                    child: Column(
+                      crossAxisAlignment: isMine
+                          ? CrossAxisAlignment.end
+                          : CrossAxisAlignment.start,
+                      children: [
+                        Container(
+                          margin: const EdgeInsets.symmetric(vertical: 4),
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 14,
+                            vertical: 10,
+                          ),
+                          constraints: const BoxConstraints(maxWidth: 280),
+                          decoration: BoxDecoration(
+                            color: isMine ? Colors.black : Colors.grey[200],
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          child: Text(
+                            message.text,
+                            style: TextStyle(
+                              color: isMine ? Colors.white : Colors.black,
+                              fontSize: 14,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  );
+                },
+              );
+            }),
+          ),
+          _buildInputField(),
+        ],
+      ),
     );
+  }
+
+  Widget _buildInputField() {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+      decoration: BoxDecoration(
+        border: Border(top: BorderSide(color: Colors.grey[300]!)),
+        color: Colors.white,
+      ),
+      child: Row(
+        children: [
+          Expanded(
+            child: TextField(
+              controller: textController,
+              decoration: InputDecoration(
+                hintText: "Type something...",
+                hintStyle: TextStyle(color: Colors.grey[500]),
+                border: InputBorder.none,
+              ),
+            ),
+          ),
+          const SizedBox(width: 8),
+          Container(
+            decoration: const BoxDecoration(
+              shape: BoxShape.circle,
+              color: Colors.black,
+            ),
+            child: IconButton(
+              onPressed: () {
+                controller.sendMessage(
+                  rideId: '688edbe79863807a05ffa13f',
+                  messageText: textController.text,
+                );
+                textController.clear();
+              },
+              icon: Icon(Icons.send, color: Colors.white, size: 20),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  String _formatTime(String dateTimeStr) {
+    try {
+      final dateTime = DateTime.parse(dateTimeStr).toLocal();
+      return DateFormat.jm().format(dateTime); // e.g. 10:03 AM
+    } catch (_) {
+      return '';
+    }
   }
 }

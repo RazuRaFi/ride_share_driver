@@ -170,14 +170,32 @@ class _TripDetailsOrderState extends State<TripDetailsOrder> {
                     ),
                     SizedBox(height: 20,),
                     Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Expanded(child: CustomTextField(
-                          hindText: "Send a free message",fieldBorderRadius: 60,prefixIcon: Icon(Icons.message),
+                        GestureDetector(
                           onTap: (){
                             Get.to(()=>MessageScreen());
-                          },)),
+                          },
+                          child: Container(
+                            padding: EdgeInsets.symmetric(horizontal: 20),
+                            height: 50,
+                            width: 300,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(50),
+                              border: Border.all(color: Colors.black)
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              spacing: 15,
+                              children: [
+                                Icon(Icons.message_outlined,size: 30,),
+                                CommonText(text: "Send Free Message",fontSize: 16,fontWeight: FontWeight.w500,)
+                              ],
+                            ),
+                          ),
+                        ),
                         IconButton(onPressed: (){
-                          showModalBottomSheet( // ✅ Prefer `showModalBottomSheet` for better behavior
+                          showModalBottomSheet(
                             context: context,
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.only(

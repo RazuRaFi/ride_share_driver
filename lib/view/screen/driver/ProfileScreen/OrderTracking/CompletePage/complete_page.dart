@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:ride_share_flat/controller/OrderTracking/order_tracking_controller.dart';
@@ -53,7 +54,7 @@ class _CompletePageState extends State<CompletePage> {
                         },
                         child: Container(
                           margin: EdgeInsets.symmetric(vertical: 10),
-                          height: 155,
+                          height: 165,
                           width: 393,
                           decoration: BoxDecoration(
                               border: Border.all(color: Colors.grey),
@@ -74,10 +75,11 @@ class _CompletePageState extends State<CompletePage> {
                                 ),
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
                                     Column(
                                       crossAxisAlignment: CrossAxisAlignment.start,
-                                      spacing: 5,
+                                      spacing: 10,
                                       children: [
                                         Row(
                                           spacing: 5,
@@ -96,6 +98,9 @@ class _CompletePageState extends State<CompletePage> {
                                       ],
                                     ),
                                     Column(
+                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                      mainAxisAlignment: MainAxisAlignment.start,
+                                      spacing: 3,
                                       children: [
                                         Container(
                                           height: 40,
@@ -112,7 +117,22 @@ class _CompletePageState extends State<CompletePage> {
                                               fill: BoxFit.fill,
                                             ),
                                           ),
-                                        )
+                                        ),
+                                        RatingBar.builder(
+                                          initialRating:complete.passengerRating.rating.toDouble(),
+                                          minRating: 0,
+                                          direction: Axis.horizontal,
+                                          allowHalfRating: true,
+                                          itemCount: 5,
+                                          itemSize: 15,
+                                          itemBuilder: (context, _) => Icon(
+                                            Icons.star,
+                                            color: Colors.amber,
+                                          ),
+                                          onRatingUpdate: (rating) {
+                                            print(rating);
+                                          },
+                                        ),
 
                                       ],
                                     ),

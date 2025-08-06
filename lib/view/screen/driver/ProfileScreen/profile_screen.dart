@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:ride_share_flat/controller/Profile/profile_controller.dart';
@@ -12,7 +13,6 @@ import 'package:ride_share_flat/view/screen/common_screen/FAQ/faq_screen.dart';
 import 'package:ride_share_flat/view/screen/common_screen/SafetyScreen/safety_screen.dart';
 import 'package:ride_share_flat/view/screen/common_screen/Terms&Services/terms_services.dart';
 import 'package:ride_share_flat/view/screen/common_screen/signIn/sign_in_screen.dart';
-
 
 import '../../../../utils/app_colors.dart';
 import '../../../component/image/common_image.dart';
@@ -30,7 +30,7 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-  final ProfileController controller=Get.put(ProfileController());
+  final ProfileController controller = Get.put(ProfileController());
   @override
   void initState() {
     // TODO: implement initState
@@ -40,13 +40,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.white,
         title: CommonText(
-          text:AppString.profile,
+          text: AppString.profile,
           fontSize: 16,
           fontWeight: FontWeight.w500,
         ),
@@ -60,45 +59,77 @@ class _ProfileScreenState extends State<ProfileScreen> {
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 5),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Obx((){
+                  Obx(() {
                     return controller.isGetProfile.value
-                        ? Center(child: CircularProgressIndicator(),)
+                        ? Center(child: CircularProgressIndicator())
                         : Row(
-                      spacing: 10,
-                      children: [
-                        Container(
-                          height: 74,
-                          width: 74,
-                          decoration: BoxDecoration(shape: BoxShape.circle),
-                          child:ClipOval(
-                            child: CommonImage(
-                              imageSrc:
-                              "${AppUrls.imageUrl}${controller.profileDetailsModel.user.profileImage}",
-                              imageType: ImageType.network,
-                              fill: BoxFit.fill,
-                            ),
-                          ),
-                        ),
-                        Column(
-                          spacing: 5,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            CommonText(
-                              text: controller.profileDetailsModel.user.fullName,
-                              fontSize: 16,
-                              fontWeight: FontWeight.w500,
-                            ),
-                            CommonText(
-                              text:controller.profileDetailsModel.user.phone,
-                              fontSize: 14,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ],
-                        ),
-                      ],
-                    );
+                            spacing: 10,
+                            children: [
+                              Container(
+                                height: 74,
+                                width: 74,
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                ),
+                                child: ClipOval(
+                                  child: CommonImage(
+                                    imageSrc:
+                                        "${AppUrls.imageUrl}${controller.profileDetailsModel.user.profileImage}",
+                                    imageType: ImageType.network,
+                                    fill: BoxFit.fill,
+                                  ),
+                                ),
+                              ),
+                              Column(
+                                spacing: 7,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  CommonText(
+                                    text: controller
+                                        .profileDetailsModel
+                                        .user
+                                        .fullName,
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                  CommonText(
+                                    text: controller
+                                        .profileDetailsModel
+                                        .user
+                                        .phone,
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                  Row(
+                                    children: [
+                                      RatingBar.builder(
+                                        initialRating:1,
+                                        minRating: 0,
+                                        direction: Axis.horizontal,
+                                        allowHalfRating: true,
+                                        itemCount: 1,
+                                        itemSize: 15,
+                                        itemBuilder: (context, _) => Icon(
+                                          Icons.star,
+                                          color: Colors.amber,
+                                        ),
+                                        onRatingUpdate: (rating) {
+                                          print(rating);
+                                        },
+                                      ),
+                                      CommonText(
+                                        text:controller.profileDetailsModel.rating.totalRatings.toString(),
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ],
+                          );
                   }),
                   GestureDetector(
                     onTap: () {
@@ -114,7 +145,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             height: 20,
                             width: 20,
                           ),
-                          CommonText(text:AppString.editProfile),
+                          CommonText(text: AppString.editProfile),
                         ],
                       ),
                     ),
@@ -128,14 +159,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 _buildTabItem(
-                    image: "assets/icons/walleticon.png",
-                    label: AppString.wallet,
-                    onTap:(){
-                      Get.to(()=>WalletScreen());
-                    }),
+                  image: "assets/icons/walleticon.png",
+                  label: AppString.wallet,
+                  onTap: () {
+                    Get.to(() => WalletScreen());
+                  },
+                ),
                 _buildTabItem(
                   image: "assets/icons/history.png",
-                  label:AppString.history,
+                  label: AppString.history,
                   onTap: () {
                     Get.to(HistoryScreen());
                   },
@@ -144,10 +176,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   image: "assets/icons/faq.png",
                   label: AppString.faq,
                   onTap: () {
-                  Get.to(()=>FAQScreen());
+                    Get.to(() => FAQScreen());
                   },
                 ),
-
               ],
             ),
             SizedBox(height: 16),
@@ -156,9 +187,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
               child: Column(
                 spacing: 10,
                 children: [
-                  roleContainer(title:AppString.scheduleRide,
-                      details:AppString.scheduleNextTrip,
-                      image: "assets/images/calender.png")
+                  roleContainer(
+                    title: AppString.scheduleRide,
+                    details: AppString.scheduleNextTrip,
+                    image: "assets/images/calender.png",
+                  ),
                 ],
               ),
             ),
@@ -168,38 +201,58 @@ class _ProfileScreenState extends State<ProfileScreen> {
               child: Column(
                 children: [
                   GestureDetector(
-                    onTap:(){
+                    onTap: () {
                       Get.to(OrderTracking());
-                        },
-                      child: ListItem(title: AppString.orderTracking, icon: 'assets/icons/order.png',)),
+                    },
+                    child: ListItem(
+                      title: AppString.orderTracking,
+                      icon: 'assets/icons/order.png',
+                    ),
+                  ),
                   GestureDetector(
-                    onTap: (){
+                    onTap: () {
                       Get.to(SettingsPage());
                     },
 
-                      child: ListItem(title: AppString.settings, icon: 'assets/icons/settings.png',)),
+                    child: ListItem(
+                      title: AppString.settings,
+                      icon: 'assets/icons/settings.png',
+                    ),
+                  ),
                   GestureDetector(
-                    onTap: (){
+                    onTap: () {
                       Get.to(SafetyScreen());
                     },
-                      child: ListItem(title: AppString.safety, icon: 'assets/icons/safety.png',)),
+                    child: ListItem(
+                      title: AppString.safety,
+                      icon: 'assets/icons/safety.png',
+                    ),
+                  ),
                   GestureDetector(
-                    onTap: (){
+                    onTap: () {
                       Get.to(TermsServices());
                     },
-                      child: ListItem(title: AppString.termsOfServices, icon: 'assets/icons/terms.png',)),
+                    child: ListItem(
+                      title: AppString.termsOfServices,
+                      icon: 'assets/icons/terms.png',
+                    ),
+                  ),
                   GestureDetector(
-                    onTap: (){
+                    onTap: () {
                       Get.to(FAQScreen());
                     },
-                      child: ListItem(title: AppString.faq, icon: 'assets/icons/faq2.png',)),
+                    child: ListItem(
+                      title: AppString.faq,
+                      icon: 'assets/icons/faq2.png',
+                    ),
+                  ),
                 ],
               ),
             ),
             SizedBox(height: 24),
 
             GestureDetector(
-              onTap: (){
+              onTap: () {
                 showDialog(
                   context: context,
                   builder: (BuildContext context) {
@@ -208,7 +261,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         borderRadius: BorderRadius.circular(10),
                       ),
                       child: Container(
-                        padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
+                        padding: const EdgeInsets.symmetric(
+                          vertical: 20,
+                          horizontal: 10,
+                        ),
                         height: 140,
                         width: 360,
                         decoration: BoxDecoration(
@@ -235,7 +291,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   titleSize: 14,
                                   onTap: () {
                                     // Add logout logic here
-                                    Get.offAll(()=>SignInScreen());
+                                    Get.offAll(() => SignInScreen());
                                   },
                                 ),
                                 CommonButton(
@@ -247,7 +303,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   titleColor: Colors.black,
                                   titleSize: 14,
                                   onTap: () {
-                                   Get.back();
+                                    Get.back();
                                   },
                                 ),
                               ],
@@ -261,24 +317,27 @@ class _ProfileScreenState extends State<ProfileScreen> {
               },
               child: SizedBox(
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal:30),
+                  padding: const EdgeInsets.symmetric(horizontal: 30),
                   child: Row(
                     spacing: 10,
                     children: [
-                      Image.asset("assets/icons/logout.png",height: 24,width: 24,),
-                      CommonText(text:AppString.logOut,fontSize: 16,fontWeight: FontWeight.w500,color: Color(0xff990000),),
+                      Image.asset(
+                        "assets/icons/logout.png",
+                        height: 24,
+                        width: 24,
+                      ),
+                      CommonText(
+                        text: AppString.logOut,
+                        fontSize: 16,
+                        fontWeight: FontWeight.w500,
+                        color: Color(0xff990000),
+                      ),
                     ],
                   ),
                 ),
               ),
             ),
             SizedBox(height: 24),
-
-
-
-
-
-
           ],
         ),
       ),
@@ -287,9 +346,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 }
 
 class ListItem extends StatelessWidget {
-  const ListItem({
-    super.key, required this.title, required this.icon,
-  });
+  const ListItem({super.key, required this.title, required this.icon});
   final String title;
   final String icon;
 
@@ -307,19 +364,20 @@ class ListItem extends StatelessWidget {
       child: Row(
         spacing: 10,
         children: [
-          Image.asset(icon,height: 24,width: 24,),
-          CommonText(text:title,fontSize: 14,fontWeight: FontWeight.w500,),
+          Image.asset(icon, height: 24, width: 24),
+          CommonText(text: title, fontSize: 14, fontWeight: FontWeight.w500),
         ],
       ),
     );
   }
 }
 
-
-
 class roleContainer extends StatelessWidget {
   const roleContainer({
-    super.key, required this.title, required this.details, required this.image,
+    super.key,
+    required this.title,
+    required this.details,
+    required this.image,
   });
   final String title;
   final String details;
@@ -331,22 +389,31 @@ class roleContainer extends StatelessWidget {
       height: 90,
       width: 361,
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10),
-          border: Border.all(color: Colors.grey)
+        borderRadius: BorderRadius.circular(10),
+        border: Border.all(color: Colors.grey),
       ),
       child: Row(
         children: [
           Expanded(
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 5,vertical: 10),
+              padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 10),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.center,
                 spacing: 5,
                 children: [
-                  CommonText(text:title,fontSize: 14,fontWeight: FontWeight.w500,),
-                  CommonText(textAlign: TextAlign.start,
-                      text: details,maxLines: 2,fontSize: 12,fontWeight: FontWeight.w400,),
+                  CommonText(
+                    text: title,
+                    fontSize: 14,
+                    fontWeight: FontWeight.w500,
+                  ),
+                  CommonText(
+                    textAlign: TextAlign.start,
+                    text: details,
+                    maxLines: 2,
+                    fontSize: 12,
+                    fontWeight: FontWeight.w400,
+                  ),
                 ],
               ),
             ),

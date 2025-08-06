@@ -54,7 +54,7 @@ class _TripDetailsScreenState extends State<TripDetailsScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     spacing: 5,
                     children: [
-                      CommonText(text: "Trip ID",fontSize: 14,fontWeight: FontWeight.w500,),
+                      CommonText(text: AppString.tripId,fontSize: 14,fontWeight: FontWeight.w500,),
                       CommonText(text: detailsController.completeRideModel.passenger.id,fontSize: 14,fontWeight: FontWeight.w500,),
                     ],
                   ),
@@ -71,7 +71,7 @@ class _TripDetailsScreenState extends State<TripDetailsScreen> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  CommonText(text: "Trip Info",fontSize: 14,fontWeight: FontWeight.w500,),
+                  CommonText(text: AppString.tripInfo,fontSize: 14,fontWeight: FontWeight.w500,),
                   Row(
                     spacing: 5,
                     children: [
@@ -187,33 +187,33 @@ class _TripDetailsScreenState extends State<TripDetailsScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 spacing: 15,
                 children: [
-                  CommonText(text: "Receipt"),
+                  CommonText(text:AppString.receipt),
                   SizedBox(height:5,),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      CommonText(text: "Base fare"),
+                      CommonText(text: AppString.baseFare),
                       CommonText(text: detailsController.completeRideModel.fare.toString()),
                     ],
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      CommonText(text: "Distance"),
+                      CommonText(text: AppString.distance),
                       CommonText(text: detailsController.completeRideModel.distance.toString()),
                     ],
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      CommonText(text: "Time"),
+                      CommonText(text: AppString.time),
                       CommonText(text: detailsController.completeRideModel.rideTotalTime.toString()),
                     ],
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      CommonText(text: "Safety Coverage Fee"),
+                      CommonText(text: AppString.safetyFee),
                       CommonText(text:detailsController.completeRideModel.safetyFee.toString()),
                     ],
                   ),
@@ -221,14 +221,14 @@ class _TripDetailsScreenState extends State<TripDetailsScreen> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      CommonText(text: "Subtotal"),
+                      CommonText(text:AppString.subtotal),
                       CommonText(text: detailsController.completeRideModel.subTotal.toString()),
                     ],
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      CommonText(text: "Discount"),
+                      CommonText(text: AppString.discount),
                       CommonText(text: detailsController.completeRideModel.discount.toString()),
                     ],
                   ),
@@ -236,7 +236,7 @@ class _TripDetailsScreenState extends State<TripDetailsScreen> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      CommonText(text: "Net fare"),
+                      CommonText(text: AppString.netFare),
                       CommonText(text: detailsController.completeRideModel.netFare.toString()),
                     ],
                   ),

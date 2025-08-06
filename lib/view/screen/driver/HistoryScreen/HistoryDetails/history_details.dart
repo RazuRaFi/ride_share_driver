@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 import 'package:ride_share_flat/controller/HistoryController/history_controller.dart';
 import 'package:ride_share_flat/controller/OrderTracking/order_tracking_controller.dart';
 import 'package:ride_share_flat/helpers/others_helper.dart';
+import 'package:ride_share_flat/utils/app_string.dart';
 import 'package:ride_share_flat/view/component/CommonText.dart';
 
 import '../../../../../utils/app_urls.dart';
@@ -34,7 +35,7 @@ class _HistoryDetailsScreenState extends State<HistoryDetailsScreen> {
       backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.white,
-        title: CommonText(text: "Trip Details",fontSize: 16,fontWeight: FontWeight.w500,),
+        title: CommonText(text: AppString.tripDetails,fontSize: 16,fontWeight: FontWeight.w500,),
         centerTitle: true,
       ),
       body:Obx((){
@@ -53,7 +54,7 @@ class _HistoryDetailsScreenState extends State<HistoryDetailsScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     spacing: 5,
                     children: [
-                      CommonText(text: "Trip ID",fontSize: 14,fontWeight: FontWeight.w500,),
+                      CommonText(text:AppString.tripId,fontSize: 14,fontWeight: FontWeight.w500,),
                       CommonText(text: historyDetails.historyDetailsModel.passenger.id,fontSize: 14,fontWeight: FontWeight.w500,),
                     ],
                   ),
@@ -70,7 +71,7 @@ class _HistoryDetailsScreenState extends State<HistoryDetailsScreen> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  CommonText(text: "Trip Info",fontSize: 14,fontWeight: FontWeight.w500,),
+                  CommonText(text: AppString.tripInfo,fontSize: 14,fontWeight: FontWeight.w500,),
                   Row(
                     spacing: 5,
                     children: [
@@ -186,33 +187,33 @@ class _HistoryDetailsScreenState extends State<HistoryDetailsScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 spacing: 15,
                 children: [
-                  CommonText(text: "Receipt"),
+                  CommonText(text: AppString.receipt),
                   SizedBox(height:5,),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      CommonText(text: "Base fare"),
+                      CommonText(text: AppString.baseFare),
                       CommonText(text: historyDetails.historyDetailsModel.fare.toString()),
                     ],
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      CommonText(text: "Distance"),
+                      CommonText(text: AppString.distance),
                       CommonText(text: historyDetails.historyDetailsModel.distance.toString()),
                     ],
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      CommonText(text: "Time"),
+                      CommonText(text: AppString.time),
                       CommonText(text: historyDetails.historyDetailsModel.rideTotalTime.toString()),
                     ],
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      CommonText(text: "Safety Coverage Fee"),
+                      CommonText(text: AppString.safetyFee),
                       CommonText(text:historyDetails.historyDetailsModel.safetyFee.toString()),
                     ],
                   ),
@@ -220,14 +221,14 @@ class _HistoryDetailsScreenState extends State<HistoryDetailsScreen> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      CommonText(text: "Subtotal"),
+                      CommonText(text: AppString.subtotal),
                       CommonText(text: historyDetails.historyDetailsModel.subTotal.toString()),
                     ],
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      CommonText(text: "Discount"),
+                      CommonText(text:AppString.discount),
                       CommonText(text: historyDetails.historyDetailsModel.discount.toString()),
                     ],
                   ),
@@ -235,7 +236,7 @@ class _HistoryDetailsScreenState extends State<HistoryDetailsScreen> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      CommonText(text: "Net fare"),
+                      CommonText(text: AppString.netFare),
                       CommonText(text: historyDetails.historyDetailsModel.netFare.toString()),
                     ],
                   ),

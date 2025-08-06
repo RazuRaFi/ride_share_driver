@@ -1,7 +1,7 @@
 class AppUrls {
-  static const baseUrl = "http://10.10.10.31:7010/api/v1";
-  static const imageUrl = "http://10.10.10.31:7010";
-  static const socketUrl = "http://103.145.138.74:3001";
+  static const baseUrl = "https://ride-sharing-flad.onrender.com/api/v1";
+  static const imageUrl = "https://ride-sharing-flad.onrender.com";
+  static const socketUrl = "https://ride-sharing-flad.onrender.com";
 
 
 
@@ -35,5 +35,6 @@ class AppUrls {
   static const history = "$baseUrl/driver/history";
   static String historyDetails(String id) => "$baseUrl/driver/history/$id";
   static const balance = "$baseUrl/wallet/get-balance";
+  static const mesage = "$baseUrl/ride/ride-status/688eda909863807a05ffa11f";
 
 }

@@ -43,6 +43,7 @@ class _FAQScreenState extends State<FAQScreen> {
           fontWeight: FontWeight.w500,
           color: AppColors.black,
         ),
+        centerTitle: true,
         bottom: PreferredSize(
           preferredSize: const Size.fromHeight(1),
           child: Container(
