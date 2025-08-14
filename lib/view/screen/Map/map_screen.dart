@@ -1,15 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-
-import '../../../controller/Mapcontroller/create_load_controller.dart';
-import '../../../controller/Mapcontroller/map_controller.dart';
-import '../../../helpers/app_routes.dart';
+import '../../../controller/GoogleMapController/custom_map_controller.dart';
 import '../../../utils/app_colors.dart';
-import '../../../utils/app_icons.dart';
-import '../../component/button/CommonButton.dart';
-import '../../component/image/common_image.dart';
-import '../../component/text_field/custom_textfield.dart';
+
 
 
 class MapScreen extends StatefulWidget {
@@ -20,10 +14,8 @@ class MapScreen extends StatefulWidget {
 }
 
 class _MapScreenState extends State<MapScreen> {
-  final MapController mapController = Get.put(MapController());
-  CreateLoadMapController createLoadMapController = Get.put(
-    CreateLoadMapController(),
-  );
+  final CustomMapController customMapController = Get.put(CustomMapController());
+
 
   TextEditingController searchLocationController = TextEditingController();
 
@@ -41,7 +33,7 @@ class _MapScreenState extends State<MapScreen> {
     // Dispose of the search controller
     searchLocationController.dispose();
     // Dispose of the MapController to clean up the GoogleMapController
-    Get.delete<MapController>();
+    Get.delete<CustomMapController>();
     super.dispose();
   }
 
@@ -95,20 +87,20 @@ class _MapScreenState extends State<MapScreen> {
         children: [
           // Google Map
           Obx(() {
-            return mapController.isLoading.value == true
+            return customMapController.isLoading.value == true
                 ? const Center(child: CircularProgressIndicator())
                 : GoogleMap(
               initialCameraPosition: CameraPosition(
-                target: mapController.currentLocation.value,
+                target: customMapController.currentLocation.value,
                 zoom: 16.0,
               ),
-              onMapCreated: mapController.setGoogleMapController,
+              onMapCreated: customMapController.setGoogleMapController,
               myLocationEnabled: true,
               onTap: (argument) async {
-                mapController.updateAddresses(argument.latitude, argument.longitude);
+                customMapController.updateAddresses(argument.latitude, argument.longitude);
               },
-              markers: Set<Marker>.of(mapController.markers),
-              circles: mapController.driverCircles,
+              markers: Set<Marker>.of(customMapController.markers),
+              circles: customMapController.driverCircles,
             );
           }),
 
@@ -119,14 +111,14 @@ class _MapScreenState extends State<MapScreen> {
             child: circleIconButton(
               context,
               onTap: () {
-                Map<String, String> data = {
-                  "address": createLoadMapController.selectedAddress.value,
-                  "city": createLoadMapController.city,
-                  "state": createLoadMapController.state,
-                  "zip": createLoadMapController.zip,
-                };
-                debugPrint("Data:======>>> $data");
-                Navigator.pop(context, data);
+                // Map<String, String> data = {
+                //   "address": createLoadMapController.selectedAddress.value,
+                //   "city": createLoadMapController.city,
+                //   "state": createLoadMapController.state,
+                //   "zip": createLoadMapController.zip,
+                // };
+                // debugPrint("Data:======>>> $data");
+                // Navigator.pop(context, data);
               },
               icon: const Icon(Icons.arrow_back, color: Colors.black),
             ),

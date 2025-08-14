@@ -30,6 +30,7 @@ class HomeScreen extends StatelessWidget {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   final TextEditingController searchTextController=TextEditingController();
 
+
   @override
   Widget build(BuildContext context) {
     final HomeController homeController=Get.put(HomeController());

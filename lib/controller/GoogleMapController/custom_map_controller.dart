@@ -11,18 +11,19 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 import '../../utils/app_icons.dart';
 
-class MapController extends GetxController {
+class CustomMapController extends GetxController {
 
-  static MapController get instance => Get.put(MapController());
+  static CustomMapController get instance => Get.put(CustomMapController());
   // Current location of the user
-  var currentLocation = const LatLng(23.759139, 90.429084).obs;
+  var currentLocation = const LatLng(0, 0).obs;
+  RxString currentAddress = "".obs;
 
   // Selected location (where the user taps on the map)
   var selectedLocation = const LatLng(0.0, 0.0).obs;
 
   // Source and destination for the route (demo data)
-  var sourceLocation = const LatLng(23.759139, 90.429084).obs; // Dhaka, Bangladesh (demo source)
-  var destinationLocation = const LatLng(23.775411, 90.435211).obs; // Slightly offset (demo destination)
+  var sourceLocation = const LatLng(0, 0).obs; // Dhaka, Bangladesh (demo source)
+  var destinationLocation = const LatLng(0, 0).obs; // Slightly offset (demo destination)
 
   // Selected address as a string
   var selectedAddress = ''.obs;
@@ -205,6 +206,8 @@ class MapController extends GetxController {
     );
 
     currentLocation.value = LatLng(position.latitude, position.longitude);
+    log("current location: ${currentLocation.value}");
+    currentAddress.value = await getAddressFromLatLng(position.latitude, position.longitude);
     selectedLocation.value = currentLocation.value;
     sourceLocation.value = currentLocation.value; // Set source as current location
     updateAddresses(position.latitude, position.longitude);
@@ -213,6 +216,22 @@ class MapController extends GetxController {
       mapController!.animateCamera(
         CameraUpdate.newLatLng(currentLocation.value),
       );
+    }
+  }
+
+  /// Address from lat lng
+  Future<String> getAddressFromLatLng(double latitude, double longitude) async {
+    try {
+      List<Placemark> placemarks = await placemarkFromCoordinates(latitude, longitude);
+
+      if (placemarks.isNotEmpty) {
+        final place = placemarks.first;
+        log("Current Address:${place.street}, ${place.locality}, ${place.administrativeArea}, ${place.country}");
+        return "${place.street}, ${place.locality}, ${place.administrativeArea}, ${place.country}";
+      }
+      return "Address not found";
+    } catch (e) {
+      return "Error: $e";
     }
   }
 

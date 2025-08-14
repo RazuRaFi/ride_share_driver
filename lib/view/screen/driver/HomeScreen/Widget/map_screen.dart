@@ -1,23 +1,17 @@
-// All imports stay the same
-import 'package:flutter/cupertino.dart';
+
 import 'package:flutter/material.dart';
-import 'package:flutter_swipe/flutter_swipe.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:ride_share_flat/controller/HomeController/home_controller.dart';
 import 'package:ride_share_flat/view/component/CommonText.dart';
 import 'package:ride_share_flat/view/component/button/CommonButton.dart';
 import 'package:ride_share_flat/view/component/text_field/custom_textfield.dart';
 import 'package:ride_share_flat/view/screen/driver/HomeScreen/Widget/internet_show.dart';
-
-import '../../../../../controller/AuthController/SignInController.dart';
-import '../../../../../controller/Mapcontroller/create_load_controller.dart';
-import '../../../../../controller/Mapcontroller/map_controller.dart';
-import '../../../../../utils/app_colors.dart';
+import '../../../../../controller/GoogleMapController/custom_map_controller.dart';
 import '../../../../../utils/app_icons.dart';
 import '../../../../component/image/common_image.dart';
 import '../HomeChild/BookingScreen/FindingRides/RidersPickup/MessageScreen/message_screen.dart';
-import '../HomeChild/Notifications/notifications.dart';
 import 'drawer_screen.dart';
 
 class HomeMapScreen extends StatefulWidget {
@@ -28,9 +22,8 @@ class HomeMapScreen extends StatefulWidget {
 }
 
 class _HomeMapScreenState extends State<HomeMapScreen> {
-  final SignInController controller = Get.put(SignInController());
-  final MapController mapController = Get.put(MapController());
-  CreateLoadMapController createLoadMapController = Get.put(CreateLoadMapController());
+  HomeController homeController = Get.find<HomeController>();
+  CustomMapController customMapController = Get.put(CustomMapController());
   TextEditingController searchLocationController = TextEditingController();
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -41,7 +34,7 @@ class _HomeMapScreenState extends State<HomeMapScreen> {
   @override
   void dispose() {
     searchLocationController.dispose();
-    Get.delete<MapController>();
+    Get.delete<CustomMapController>();
     super.dispose();
   }
 
@@ -60,20 +53,20 @@ class _HomeMapScreenState extends State<HomeMapScreen> {
       body: Stack(
         children: [
           Obx(() {
-            return mapController.isLoading.value == true
+            return  customMapController.currentLocation.value == LatLng(0,0)
                 ? const Center(child: CircularProgressIndicator())
                 : GoogleMap(
               initialCameraPosition: CameraPosition(
-                target: mapController.currentLocation.value,
+                target: customMapController.currentLocation.value,
                 zoom: 16.0,
               ),
-              onMapCreated: mapController.setGoogleMapController,
+              onMapCreated: customMapController.setGoogleMapController,
               myLocationEnabled: true,
               onTap: (argument) async {
-                mapController.updateAddresses(argument.latitude, argument.longitude);
+                customMapController.updateAddresses(argument.latitude, argument.longitude);
               },
-              markers: Set<Marker>.of(mapController.markers),
-              circles: mapController.driverCircles,
+              markers: Set<Marker>.of(customMapController.markers),
+              circles: customMapController.driverCircles,
             );
           }),
           Positioned(
@@ -96,13 +89,13 @@ class _HomeMapScreenState extends State<HomeMapScreen> {
                   width: 40.0,
                   height: 20.0,
                   toggleSize: 20.0,
-                  value: controller.isRemembered.value,
+                  value: homeController.isOnline.value,
                   borderRadius: 30.0,
                   padding: 2.0,
                   activeColor: Colors.black,
                   inactiveColor: Colors.black,
                   toggleColor: Colors.white,
-                  onToggle: (val) => controller.toggleRemembered(val),
+                  onToggle: (val) => homeController.toggleOnline(val),
                 )),
               ],
             ),
@@ -387,7 +380,7 @@ class _HomeMapScreenState extends State<HomeMapScreen> {
               },
             ),
           Obx(() => Visibility(
-            visible: controller.isRemembered.value,
+            visible: !homeController.isOnline.value,
             child: Positioned(
               top: 100,
               right: 0,

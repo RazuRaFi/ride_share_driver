@@ -9,6 +9,7 @@ import 'app_routes.dart';
 class PrefsHelper extends GetxController {
   static String token = "";
   static bool isLogIn = false;
+  static bool isOnline = false;
   static bool isNotifications = true;
   static String refreshToken = "";
   static String userId = "";
@@ -33,6 +34,7 @@ class PrefsHelper extends GetxController {
     myEmail = preferences.getString("myEmail") ?? "";
     myRole = preferences.getString("myRole") ?? "";
     isLogIn = preferences.getBool("isLogIn") ?? false;
+    isOnline = preferences.getBool("isOnline") ?? false;
     isNotifications = preferences.getBool("isNotifications") ?? true;
     mySubscription = preferences.getString("mySubscription") ?? "shopping";
     localizationCountryCode =
@@ -62,6 +64,7 @@ class PrefsHelper extends GetxController {
     preferences.setString("myName", "");
     preferences.setString("myEmail", "");
     preferences.setBool("isLogIn", false);
+    preferences.setBool("isOnline", false);
     preferences.setBool("isNotifications", true);
     preferences.setString("mySubscription", "shopping");
 

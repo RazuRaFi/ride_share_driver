@@ -14,8 +14,8 @@ import '../../utils/app_urls.dart';
 class SignInController extends GetxController{
   RxBool isLoading=false.obs;
   RxBool isRemembered = false.obs;
-  final TextEditingController emailController=TextEditingController();
-  final TextEditingController passwordController=TextEditingController();
+  final TextEditingController emailController=TextEditingController(text: "driver2@gmail.com");
+  final TextEditingController passwordController=TextEditingController(text:  "12345678");
 
 
   void toggleRemembered(bool value) {

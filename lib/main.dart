@@ -2,11 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:ride_share_flat/controller/HomeController/home_controller.dart';
 import 'package:ride_share_flat/helpers/app_routes.dart';
-import 'package:ride_share_flat/view/screen/common_screen/splash/splash_screen.dart';
-import 'package:ride_share_flat/view/test_screen.dart';
+import 'package:ride_share_flat/services/socket_services.dart';
 
-void main() {
+import 'helpers/pref_helper.dart';
+
+
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await PrefsHelper.getAllPrefData();
+  if(PrefsHelper.token.isNotEmpty && PrefsHelper.isOnline){
+    HomeController.instance.isOnline.value = PrefsHelper.isOnline;
+    SocketServices.connectToSocket(token: PrefsHelper.token);
+  }
   runApp(const MyApp());
 }
 

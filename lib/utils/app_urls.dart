@@ -1,7 +1,7 @@
 class AppUrls {
   static const baseUrl = "http://10.10.10.31:7010/api/v1";
   static const imageUrl = "http://10.10.10.31:7010";
-  static const socketUrl = "http://103.145.138.74:3001";
+  static const socketUrl = "ws://10.10.10.31:7010";
 
 
 

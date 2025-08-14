@@ -1,17 +1,8 @@
 
-
-
-
-
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-
-import '../../../../../../controller/Mapcontroller/create_load_controller.dart';
-import '../../../../../../controller/Mapcontroller/map_controller.dart';
+import '../../../../../../controller/GoogleMapController/custom_map_controller.dart';
 import '../../../../../../helpers/app_routes.dart';
 import '../../../../../../utils/app_colors.dart';
 import '../../../../../../utils/app_icons.dart';
@@ -27,12 +18,8 @@ class SetLocationHome extends StatefulWidget {
 }
 
 class _SetLocationHomeState extends State<SetLocationHome> {
-  final MapController mapController = Get.put(MapController());
-  CreateLoadMapController createLoadMapController = Get.put(
-    CreateLoadMapController(),
-  );
+  final CustomMapController mapController = Get.put(CustomMapController());
 
-  final String googleApiKey = "AIzaSyC0hhuHPap6Wk98dZIyQdvvpoE3p-LuXhU";
   TextEditingController searchLocationController = TextEditingController();
 
   @override
@@ -49,7 +36,7 @@ class _SetLocationHomeState extends State<SetLocationHome> {
     // Dispose of the search controller
     searchLocationController.dispose();
     // Dispose of the MapController to clean up the GoogleMapController
-    Get.delete<MapController>();
+    Get.delete<CustomMapController>();
     super.dispose();
   }
 
@@ -127,14 +114,14 @@ class _SetLocationHomeState extends State<SetLocationHome> {
             child: circleIconButton(
               context,
               onTap: () {
-                Map<String, String> data = {
-                  "address": createLoadMapController.selectedAddress.value,
-                  "city": createLoadMapController.city,
-                  "state": createLoadMapController.state,
-                  "zip": createLoadMapController.zip,
-                };
-                debugPrint("Data:======>>> $data");
-                Navigator.pop(context, data);
+                // Map<String, String> data = {
+                //   "address": createLoadMapController.selectedAddress.value,
+                //   "city": createLoadMapController.city,
+                //   "state": createLoadMapController.state,
+                //   "zip": createLoadMapController.zip,
+                // };
+                // debugPrint("Data:======>>> $data");
+                // Navigator.pop(context, data);
               },
               icon: const Icon(Icons.arrow_back, color: Colors.black),
             ),
